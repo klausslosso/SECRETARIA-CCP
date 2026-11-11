@@ -1,0 +1,2061 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secretaria CCP - Centro de Capacitação Profissional de Iguaba Grande</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Cinzel:wght@600;700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Cinzel', 'serif']
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#1e40af',
+              600: '#1d4ed8',
+              700: '#1e3a8a',
+              800: '#172554',
+              900: '#0f172a',
+            },
+            gov: {
+              blue: '#0b3b60',
+              accent: '#0284c7',
+              emerald: '#059669',
+              amber: '#d97706',
+              gold: '#b45309'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: white;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  
+    /* =================================================== */
+    /* ESTILOS DOS CURSOS E TURMAS (COLUNAS AGRUPADAS HORIZONTALMENTE) */
+    /* =================================================== */
+    .cursos-grid-container {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (min-width: 768px) {
+      .cursos-grid-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1280px) {
+      .cursos-grid-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1750px) {
+      .cursos-grid-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .curso-simplified-block {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .curso-simplified-block:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      border-color: #cbd5e1;
+    }
+    .curso-simplified-header {
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .turma-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      flex: 1;
+    }
+    .turma-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 7px;
+      cursor: pointer;
+    }
+    .turma-card:hover {
+      border-color: #2563eb;
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(37, 99, 235, 0.08);
+    }
+    .capacity-bar {
+      background: #e2e8f0;
+      height: 6px;
+      border-radius: 99px;
+      overflow: hidden;
+      width: 100%;
+    }
+    .capacity-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+    .badge-disponivel {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+    .badge-ideal {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+    .badge-excedida {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+    .badge-espera {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- TELA DE LOGIN (ESTILO PADRÃO CCP IGUABA GRANDE / SUPABASE) -->
+  <div id="login-screen" class="no-print fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-8 w-full max-w-md space-y-6 relative">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-700 text-white flex items-center justify-center shadow-lg">
+          <i class="fa-solid fa-graduation-cap text-2xl text-blue-100"></i>
+        </div>
+        <h2 class="text-2xl font-black text-slate-800 tracking-tight">Secretaria CCP</h2>
+        <p class="text-xs text-slate-500 font-medium">CCP • SDETR • Prefeitura de Iguaba Grande</p>
+      </div>
+
+      <div id="login-error-msg" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-600 flex items-center gap-2">
+        <i class="fa-solid fa-circle-exclamation flex-shrink-0"></i>
+        <span id="login-error-text">Credenciais inválidas.</span>
+      </div>
+
+      <form id="loginForm" onsubmit="event.preventDefault(); realizarLogin();" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">E-mail Institucional</label>
+          <div class="relative">
+            <input type="email" id="login-email" required placeholder="nome@iguaba.rj.gov.br" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white focus:outline-none transition">
+            <i class="fa-solid fa-envelope text-slate-400 absolute right-3.5 top-3 pointer-events-none"></i>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Palavra-passe / Senha</label>
+          <div class="relative">
+            <input type="password" id="login-senha" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white focus:outline-none transition">
+            <i class="fa-solid fa-lock text-slate-400 absolute right-3.5 top-3 pointer-events-none"></i>
+          </div>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="w-full py-3 bg-blue-700 hover:bg-blue-600 active:scale-[0.99] text-white font-bold rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+          <span>Entrar no Sistema</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="pt-4 border-t border-slate-100 text-center">
+        <span class="text-[11px] text-slate-400">Coordenação Pedagógica CCP • SDETR</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SIDEBAR FIXA -->
+  <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col flex-shrink-0 z-30 transition-all duration-300 shadow-xl border-r border-slate-800">
+    <!-- Brand / Unidade Header -->
+    <div class="p-5 border-b border-slate-800/80 bg-slate-950/40">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+          <i class="fa-solid fa-graduation-cap text-lg"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-sm tracking-wide text-white leading-tight">CCP IGUABA GRANDE</h1>
+          <p class="text-xs text-blue-400 font-medium">Secretaria &amp; Gestão</p>
+        </div>
+      </div>
+      <div class="mt-3 px-2 py-1 rounded bg-slate-800/70 border border-slate-700/50 flex items-center justify-between text-[11px] text-slate-300">
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema Ativo</span>
+        <span class="text-slate-400 font-mono">Ano 2026.2</span>
+      </div>
+    </div>
+
+    <!-- Navegação por Módulos -->
+    <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto custom-scrollbar text-sm">
+      <div class="px-3 pb-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Principal</div>
+
+      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg hover:bg-slate-800/80 hover:text-white transition group active-tab font-medium bg-blue-600 text-white shadow-sm">
+        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+        <span>Visão Geral &amp; Indicadores</span>
+      </button>
+
+      
+
+      <div class="pt-3 px-3 pb-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Acadêmico</div>
+
+      <a href="https://klausslosso.github.io/Alunos/" target="_blank" id="nav-gestao-alunos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
+        <i class="fa-solid fa-user-graduate w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+        <span>Gestão de Alunos</span>
+      </a>
+
+      <a href="https://klausslosso.github.io/CURSOS/" target="_blank" id="nav-cursos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
+        <i class="fa-solid fa-users-rectangle w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+        <span>Cursos e Turmas</span>
+      </a>
+
+      <a href="https://klausslosso.github.io/Estoque-CCP/" target="_blank" id="nav-materiais" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
+        <i class="fa-solid fa-boxes-stacked w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+        <span>Estoque e Histórico</span>
+      </a>
+
+      <a href="https://klausslosso.github.io/COMUNICA-O/" target="_blank" id="nav-comunicacao" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
+        <i class="fa-solid fa-bullhorn w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+        <span>Comunicação com Aluno</span>
+      </a>
+
+      <a href="emissor_certificados_ccp_v5.html" target="_blank" id="nav-doc-certificado" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
+        <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+        <span>Emissão de Certificado</span>
+      </a>
+    </nav>
+
+    <!-- Rodapé da Barra Lateral -->
+    <div class="p-4 border-t border-slate-800/90 bg-slate-950/60 text-xs text-slate-400 flex flex-col gap-2">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-landmark-dome text-blue-400"></i>
+        <span>Prefeitura de Iguaba Grande</span>
+      </div>
+      <div class="text-[11px] text-slate-400 pl-5">Sec. Municipal de Trabalho e Renda</div>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL (MAIN WRAPPER) -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+    <!-- CABEÇALHO SUPERIOR (HEADER) -->
+    <header class="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs">
+      <div class="flex items-center gap-4 flex-1 max-w-xl">
+        <div class="relative w-full">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+          </span>
+          <input type="text" id="globalSearch" oninput="handleGlobalSearch(this.value)" placeholder="Buscar por aluno, matrícula, CPF, chamada ou turma..." class="w-full pl-9 pr-4 py-2 text-xs md:text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition placeholder-slate-400">
+        </div>
+      </div>
+
+      <!-- Ações do Header & Perfil -->
+      <div class="flex items-center gap-4">
+        <!-- Notificações -->
+        <button class="relative p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition" title="Notificações">
+          <i class="fa-regular fa-bell text-lg"></i>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full"></span>
+        </button>
+
+        <div class="h-6 w-px bg-slate-200"></div>
+
+        <!-- Perfil do Usuário / Secretaria -->
+        <div class="flex items-center gap-3">
+          <div class="text-right hidden sm:block">
+            <div class="text-xs font-bold text-slate-800" id="userNameDisplay">Helena Vasconcelos</div>
+            <div class="text-[11px] text-slate-500" id="userRoleDisplay">Agente Administrativo - CCP</div>
+          </div>
+          <div class="w-9 h-9 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-xs border-2 border-blue-500 shadow-sm" id="userAvatarDisplay">
+            HV
+          </div>
+          <button onclick="realizarLogout()" class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition cursor-pointer" title="Sair do Sistema">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ÁREA DINÂMICA DE CONTEÚDO (MAIN) -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+
+      <!-- ============================================== -->
+      <!-- TAB 1: DASHBOARD & INDICADORES                 -->
+      <!-- ============================================== -->
+      <section id="tab-dashboard" class="tab-content space-y-6">
+        <!-- Boas-vindas e Ações Rápidas -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-sm"><div class="w-full flex flex-col items-center text-center"><div class="flex items-center justify-center gap-2"><span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">Painel Operacional</span></div><h2 class="text-xl font-bold text-slate-800 mt-1 text-center">Secretaria do Centro de Capacitação Profissional</h2><p class="text-xs md:text-sm text-slate-600 text-center">Monitoramento em tempo real de matrículas, frequência e solicitações escolares.</p></div></div>
+
+        <!-- CARDS DE MÉTRICAS RÁPIDAS (SINCRONIZADOS COM CURSOS CCP) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center">
+          <!-- Total de Alunos Cursando -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex flex-col items-center justify-center text-center hover:border-blue-300 transition gap-2.5">
+            <div class="w-11 h-11 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg"><i class="fa-solid fa-user-graduate"></i></div>
+            <div class="flex flex-col items-center">
+              <p class="text-xs font-medium text-slate-600">Alunos Cursando</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5" id="kpi-total-matriculados">388</h3>
+              <p class="text-[11px] text-emerald-800 font-semibold mt-1 flex items-center justify-center gap-1"><i class="fa-solid fa-check-circle"></i> Matrículas confirmadas</p>
+            </div>
+          </div>
+
+          <!-- Turmas em Andamento -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex flex-col items-center justify-center text-center hover:border-blue-300 transition gap-2.5">
+            <div class="w-11 h-11 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="flex flex-col items-center">
+              <p class="text-xs font-medium text-slate-600">Turmas em Andamento</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5" id="kpi-total-turmas">19</h3>
+              <p class="text-[11px] text-slate-600 font-medium mt-1">Manhã, Tarde e Noite</p>
+            </div>
+          </div>
+
+          <!-- Cursos Ativos -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex flex-col items-center justify-center text-center hover:border-blue-300 transition gap-2.5">
+            <div class="w-11 h-11 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg"><i class="fa-solid fa-book-open"></i></div>
+            <div class="flex flex-col items-center">
+              <p class="text-xs font-medium text-slate-600">Cursos Ativos</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5" id="kpi-total-cursos">10</h3>
+              <p class="text-[11px] text-blue-800 font-medium mt-1">Gratuitos e Profissionais</p>
+            </div>
+          </div>
+
+          <!-- Fila de Espera Total -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex flex-col items-center justify-center text-center hover:border-blue-300 transition gap-2.5">
+            <div class="w-11 h-11 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="flex flex-col items-center">
+              <p class="text-xs font-medium text-slate-600">Fila de Espera Total</p>
+              <h3 class="text-2xl font-extrabold text-amber-600 mt-0.5" id="kpi-total-espera">112</h3>
+              <p class="text-[11px] text-slate-600 font-medium mt-1">Candidatos aguardando</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- INDICADORES GRÁFICOS E OCUPAÇÃO -->
+        <div class="grid grid-cols-1 gap-6">
+          <!-- SEÇÃO MODERNA DE CURSOS E TURMAS (PADRÃO SGE CCP) -->
+        <div class="space-y-4">
+          <!-- Cabeçalho & Filtros -->
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">Quadro de Cursos & Turmas</span>
+                <span class="text-xs text-slate-500 font-medium">Ano Letivo 2026.2</span>
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mt-1">Cursos Oferecidos &amp; Lotação de Turmas</h2>
+              <p class="text-xs md:text-sm text-slate-600">Visualização detalhada com carga horária, turnos, vagas preenchidas e lista de espera do CCP.</p>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-2.5">
+              <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
+                <input type="text" id="filtroCursosInput" oninput="filtrarCursosETurmasInstantaneo(this.value)" placeholder="Buscar curso ou turma..." class="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition w-44 sm:w-56">
+              </div>
+              <div class="inline-flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs">
+                <button type="button" onclick="filtrarTurnoCursos('TODOS')" id="btn-turno-todos" class="btn-turno px-3 py-1 font-bold rounded-md bg-white text-blue-700 shadow-xs cursor-pointer">Todos</button>
+                <button type="button" onclick="filtrarTurnoCursos('MANHÃ')" id="btn-turno-manha" class="btn-turno px-3 py-1 font-medium text-slate-600 hover:text-slate-900 rounded-md cursor-pointer">Manhã</button>
+                <button type="button" onclick="filtrarTurnoCursos('TARDE')" id="btn-turno-tarde" class="btn-turno px-3 py-1 font-medium text-slate-600 hover:text-slate-900 rounded-md cursor-pointer">Tarde</button>
+                <button type="button" onclick="filtrarTurnoCursos('NOITE')" id="btn-turno-noite" class="btn-turno px-3 py-1 font-medium text-slate-600 hover:text-slate-900 rounded-md cursor-pointer">Noite</button>
+              </div>
+              <a href="https://klausslosso.github.io/CURSOS/" target="_blank" class="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                <span>Gerenciar no Portal</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Container dinâmico dos blocos de cursos e turmas -->
+          <div id="dashboard-cursos-container" class="cursos-grid-container">
+            <!-- Renderizado dinamicamente via JavaScript com dados ricos do CCP -->
+          </div>
+        </div>
+
+        <!-- Distribuição por Turno & Resumo Operacional -->
+          
+        </div>
+
+        <!-- ÚLTIMOS ATENDIMENTOS RÁPIDOS NO DASHBOARD -->
+        
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: ATENDIMENTO & REQUISIÇÕES               -->
+      <!-- ============================================== -->
+      <section id="tab-turmas-ativas" class="tab-content hidden space-y-6">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">Ano Letivo 2026.2</span>
+        <span class="flex items-center gap-1.5 text-xs text-emerald-700 font-semibold"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 19 Turmas em Andamento</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800 mt-1">Turmas Ativas no CCP Iguaba Grande</h2>
+      <p class="text-xs md:text-sm text-slate-600">Quadro completo com grade de horários, dias de aula e percentual de assiduidade.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="https://klausslosso.github.io/CURSOS/" target="_blank" class="px-3.5 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-2 shadow-sm">
+        <i class="fa-solid fa-external-link"></i> Abrir Sistema de Cursos
+      </a>
+    </div>
+  </div>
+
+  <div id="tab-turmas-ativas-container" class="cursos-grid-container">
+    <!-- Renderizado dinamicamente com os mesmos blocos organizados -->
+  </div>
+</section>
+
+      <!-- ============================================== -->
+      <!-- TAB 3: CURSOS, TURMAS E FREQUÊNCIA             -->
+      <!-- ============================================== -->
+      <section id="tab-cursos" class="tab-content hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <div>
+            <h2 class="text-xl font-bold text-slate-800">Gestão de Turmas &amp; Diário de Presença</h2>
+            <p class="text-xs md:text-sm text-slate-600">Acompanhamento de lotação, controle de faltas e registro oficial de presença diária.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="salvarChamadaAtual()" class="px-3.5 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm flex items-center gap-2 transition">
+              <i class="fa-solid fa-floppy-disk"></i> Salvar Chamada do Dia
+            </button>
+          </div>
+        </div>
+
+        <!-- Seletor de Turma e Data -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Selecionar Turma Ativa</label>
+            <select id="selectTurmaFrequencia" onchange="carregarTurmaFrequencia()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium text-slate-800">
+              <option value="T-ELEC-01">Eletricista Predial - Turma 01 (Noite) - Sala 03</option>
+              <option value="T-ADM-02">Assistente Administrativo - Turma 02 (Tarde) - Sala 01</option>
+              <option value="T-INFO-01">Informática Básica e Office - Turma 01 (Manhã) - Lab Info</option>
+              <option value="T-CONF-01">Confeitaria e Panificação - Turma 01 (Manhã) - Cozinha Escola</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Data da Chamada</label>
+            <input type="date" id="dataChamada" value="2026-11-11" onchange="carregarTurmaFrequencia()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium text-slate-800">
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="marcarTodos(true)" class="flex-1 py-2.5 px-3 text-xs font-semibold rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition text-center">
+              <i class="fa-solid fa-check-double mr-1"></i> Todos Presentes
+            </button>
+            <button onclick="marcarTodos(false)" class="flex-1 py-2.5 px-3 text-xs font-semibold rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 transition text-center">
+              <i class="fa-solid fa-xmark mr-1"></i> Limpar Presenças
+            </button>
+          </div>
+        </div>
+
+        <!-- Indicador de Lotação da Turma Selecionada -->
+        <div id="turmaInfoCard" class="bg-gradient-to-r from-blue-900 to-slate-900 text-white p-5 rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <!-- Preenchido via script -->
+        </div>
+
+        <!-- Grade de Chamada Diária -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
+            <div>
+              <h3 class="font-bold text-sm text-slate-800">Lista Nominal de Frequência</h3>
+              <p class="text-xs text-slate-600">Clique no botão de presença para alternar entre Presente e Falta</p>
+            </div>
+            <div class="flex items-center gap-3 text-xs font-semibold">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Presente: <strong id="count-presentes" class="text-emerald-700 font-bold">0</strong></span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500"></span> Faltas: <strong id="count-faltas" class="text-rose-700 font-bold">0</strong></span>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th class="py-3 px-4 w-12 text-center">#</th>
+                  <th class="py-3 px-4">Matrícula</th>
+                  <th class="py-3 px-4">Nome Completo do Aluno</th>
+                  <th class="py-3 px-4">Frequência Acumulada</th>
+                  <th class="py-3 px-4">Situação Acadêmica</th>
+                  <th class="py-3 px-4 text-center">Status no Dia</th>
+                  <th class="py-3 px-4">Observações</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700" id="frequencia-table-body">
+                <!-- Gerado por JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 4: EMISSÃO DE DOCUMENTOS OFICIAIS         -->
+      <!-- ============================================== -->
+      <section id="tab-documentos" class="tab-content hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-stamp"></i>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-slate-800">Emissão de Documentos Oficiais</h2>
+              <p class="text-xs md:text-sm text-slate-600">Geração de Certificados com QR Code de autenticidade e Carteirinhas Estudantis.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seletor de Tipo de Documento -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Card Certificado -->
+          <div onclick="selectDocType('certificado')" id="card-doc-certificado" class="doc-type-card cursor-pointer p-5 bg-white border-2 border-blue-600 rounded-xl shadow-xs transition hover:shadow-md relative">
+            <div class="flex items-start justify-between">
+              <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-award"></i>
+              </div>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">Com QR Code</span>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 mt-3">Certificado de Conclusão</h3>
+            <p class="text-xs text-slate-600 mt-1">Documento de conclusão de curso profissionalizante com carga horária e hash de validação.</p>
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-[11px] font-semibold text-blue-600">Modelo Interno Ativo</span>
+              <a href="emissor_certificados_ccp_v5.html" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">Emissor Oficial (v5) <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+            </div>
+          </div>
+
+          <!-- Card Carteirinha -->
+          <div onclick="selectDocType('carteirinha')" id="card-doc-carteirinha" class="doc-type-card cursor-pointer p-5 bg-white border-2 border-transparent hover:border-slate-300 rounded-xl shadow-xs transition hover:shadow-md">
+            <div class="flex items-start justify-between">
+              <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-id-card"></i>
+              </div>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">Formato Crachá</span>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 mt-3">Carteirinha do Aluno</h3>
+            <p class="text-xs text-slate-600 mt-1">Identificação estudantil oficial do CCP com código de barras, fotografia e validade.</p>
+          </div>
+        </div>
+
+        <!-- Formulário Gerador -->
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <h3 class="font-bold text-sm text-slate-800" id="form-doc-title">Parâmetros do Certificado</h3>
+            <span class="text-xs text-slate-600">Preencha ou selecione um aluno pré-cadastrado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Seleção rápida de aluno -->
+            <div class="md:col-span-3">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Preenchimento Rápido (Buscar Aluno)</label>
+              <select id="docAlunoSelect" onchange="preencherDadosAlunoDoc(this.value)" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+                <option value="">-- Selecione para preencher os campos automaticamente --</option>
+                <option value="0">Carlos Eduardo Ribeiro - Eletricista Predial (Matrícula: 2024-0012)</option>
+                <option value="1">Mariana Souza Silveira - Assistente Administrativo (Matrícula: 2024-0045)</option>
+                <option value="2">Lucas Gabriel Ferreira - Confeitaria Artesanal (Matrícula: 2024-0089)</option>
+                <option value="3">Beatriz Mendes Albuquerque - Informática Fundamental (Matrícula: 2024-0102)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nome Completo do Aluno</label>
+              <input type="text" id="docAlunoNome" value="Carlos Eduardo Ribeiro" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">CPF do Aluno</label>
+              <input type="text" id="docAlunoCPF" value="128.490.337-12" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Número de Matrícula</label>
+              <input type="text" id="docAlunoMatricula" value="2024-0012" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Curso / Habilitação</label>
+              <input type="text" id="docAlunoCurso" value="Eletricista Predial &amp; Residencial" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Carga Horária (Horas)</label>
+              <input type="text" id="docAlunoCarga" value="160 Horas" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+
+            </div>
+          </div>
+
+          <!-- Botões de Ação do Documento -->
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+            <button type="button" onclick="visualizarDocumento()" class="px-4 py-2.5 text-xs font-bold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm flex items-center gap-2 transition">
+              <i class="fa-solid fa-eye"></i> Visualizar Prévia do Documento
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 5: MATERIAL DIDÁTICO & RECURSOS            -->
+      <!-- ============================================== -->
+      <section id="tab-materiais" class="tab-content hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <div>
+            <h2 class="text-xl font-bold text-slate-800">Controle de Material Didático &amp; Kits</h2>
+            <p class="text-xs md:text-sm text-slate-600">Gestão de estoque físico, apostilas impressas, EPIs e confirmação de entrega aos alunos.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="abrirNovoLoteModal()" class="px-3.5 py-2 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm flex items-center gap-2 transition">
+              <i class="fa-solid fa-box"></i> Registrar Entrada de Estoque
+            </button>
+          </div>
+        </div>
+
+        <!-- Cards de Estoque de Insumos -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-slate-600">Apostilas Impressas</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5">340</h3>
+              <p class="text-[11px] text-emerald-800 font-semibold mt-1">120 já entregues</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-book"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-slate-600">Kits de Ferramentas / EPIs</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5">85</h3>
+              <p class="text-[11px] text-amber-800 font-semibold mt-1">Estoque em atenção</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-helmet-safety"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-slate-600">Kits de Confeitaria</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5">50</h3>
+              <p class="text-[11px] text-emerald-800 font-semibold mt-1">100% dos alunos atendidos</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-slate-600">Crachás / Cordões</p>
+              <h3 class="text-2xl font-extrabold text-slate-900 mt-0.5">490</h3>
+              <p class="text-[11px] text-blue-800 font-semibold mt-1">Emissão regular</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-id-badge"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela de Distribuição por Aluno e Turma -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 bg-slate-50/70">
+            <div>
+              <h3 class="font-bold text-sm text-slate-800">Status de Entrega de Materiais por Aluno</h3>
+              <p class="text-xs text-slate-600">Registro com data e confirmação de recebimento assinado</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <select id="filtroTurmaMaterial" onchange="renderMateriaisTable()" class="p-1.5 text-xs bg-white border border-slate-300 rounded-lg">
+                <option value="TODAS">Todas as Turmas</option>
+                <option value="Eletricista Predial">Eletricista Predial</option>
+                <option value="Assistente Administrativo">Assistente Administrativo</option>
+                <option value="Confeitaria Artesanal">Confeitaria Artesanal</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th class="py-3 px-4">Aluno</th>
+                  <th class="py-3 px-4">Turma / Turno</th>
+                  <th class="py-3 px-4">Apostila Teórica</th>
+                  <th class="py-3 px-4">Kit Prático / Insumos</th>
+                  <th class="py-3 px-4">Data de Entrega</th>
+                  <th class="py-3 px-4 text-center">Status</th>
+                  <th class="py-3 px-4 text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700" id="materiais-table-body">
+                <!-- Preenchido via script -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL DE VISUALIZAÇÃO E IMPRESSÃO DE DOCUMENTOS OFICIAIS       -->
+  <!-- ============================================================== -->
+  <div id="modalDocumento" class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full border border-slate-200 overflow-hidden flex flex-col my-8">
+      
+      <!-- Cabeçalho do Modal (não sai na impressão) -->
+      <div class="no-print p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-file-invoice text-blue-400"></i>
+          <div>
+            <h3 class="font-bold text-sm text-white" id="modalDocTituloHeader">Visualização Prévia do Documento Oficial</h3>
+            <p class="text-[11px] text-slate-400">Verifique os dados antes de disparar o comando de impressão</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+            <i class="fa-solid fa-print"></i> Imprimir Documento (Ctrl+P)
+          </button>
+          <button onclick="fecharModalDocumento()" class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition">
+            <i class="fa-solid fa-xmark text-base"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ÁREA DE IMPRESSÃO (PRINT AREA) -->
+      <div id="printArea" class="p-8 md:p-12 bg-white text-slate-900 flex-1 overflow-y-auto">
+        <!-- O conteúdo abaixo será alterado dinamicamente (Certificado, Declaração ou Carteirinha) -->
+        <div id="docRenderZone"></div>
+      </div>
+
+      <!-- Rodapé do Modal (não sai na impressão) -->
+      <div class="no-print p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+        <span class="flex items-center gap-1"><i class="fa-solid fa-lock text-emerald-600"></i> Validade jurídica certificada pela Prefeitura Municipal de Iguaba Grande</span>
+        <button onclick="fecharModalDocumento()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-semibold hover:bg-slate-100 transition">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NOVO REQUERIMENTO / PROTOCOLO -->
+  <div id="modalNovoProtocolo" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full p-6 border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 class="font-bold text-base text-slate-800">Abertura de Chamado / Solicitação</h3>
+        <button onclick="fecharNovoProtocoloModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <form id="formNovoProtocolo" onsubmit="salvarNovoProtocolo(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nome Completo do Aluno</label>
+          <input type="text" id="novoAlunoNome" required="" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Matrícula</label>
+            <input type="text" id="novoAlunoMatricula" required="" placeholder="Ex: 2026-0199" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Curso / Turma</label>
+            <input type="text" id="novoAlunoCurso" required="" placeholder="Ex: Eletricista - Noite" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Tipo de Solicitação</label>
+          <select id="novoTipoSolicitacao" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+            <option value="Justificativa de Falta (Atestado)">Justificativa de Falta (Atestado Médico/Trabalho)</option>
+            <option value="Segunda Via de Documento / Crachá">Segunda Via de Documento / Crachá</option>
+            <option value="Trancamento / Cancelamento">Trancamento ou Cancelamento de Matrícula</option>
+            <option value="Mudança de Turno">Solicitação de Mudança de Turno</option>
+            <option value="Outros Requerimentos">Outros Requerimentos Gerais</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Observações / Motivo</label>
+          <textarea id="novoObservacoes" rows="2" placeholder="Descreva brevemente a motivação da solicitação..." class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-200 flex justify-end gap-2">
+          <button type="button" onclick="fecharNovoProtocoloModal()" class="px-4 py-2 border border-slate-300 rounded-lg font-semibold text-slate-700 hover:bg-slate-100">Cancelar</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold">Salvar Protocolo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-xs transform transition-all duration-300 translate-y-20 opacity-0 pointer-events-none">
+    <div id="toastIcon" class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <div id="toastMsg" class="font-medium">Ação realizada com sucesso!</div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- JAVASCRIPT VANILLA & CONTROLE DE DADOS          -->
+  <!-- ============================================== -->
+  <script>
+    // BASE DE DADOS MOCKADA (Pronta para integração Supabase/REST API)
+    let state = {
+      currentTab: 'dashboard',
+      currentDocType: 'certificado',
+      requisicoes: [
+        { id: 'PROT-2026-014', data: '24/02/2026', aluno: 'Carlos Eduardo Ribeiro', matricula: '2024-0012', curso: 'Eletricista Predial (Noite)', tipo: 'Justificativa de Falta (Atestado)', status: 'PENDENTE' },
+        { id: 'PROT-2026-013', data: '24/02/2026', aluno: 'Mariana Souza Silveira', matricula: '2024-0045', curso: 'Assistente Administrativo (Tarde)', tipo: '2ª Via de Crachá Estudantil', status: 'EM_ANALISE' },
+        { id: 'PROT-2026-012', data: '23/02/2026', aluno: 'Lucas Gabriel Ferreira', matricula: '2024-0089', curso: 'Confeitaria Artesanal (Manhã)', tipo: 'Trancamento de Matrícula', status: 'PENDENTE' },
+        { id: 'PROT-2026-011', data: '23/02/2026', aluno: 'Beatriz Mendes Albuquerque', matricula: '2024-0102', curso: 'Informática Fundamental (Manhã)', tipo: 'Declaração de Matrícula p/ Estágio', status: 'DEFERIDO' },
+        { id: 'PROT-2026-010', data: '22/02/2026', aluno: 'Thiago Nogueira Ramos', matricula: '2024-0133', curso: 'Manutenção de Ar Split (Noite)', tipo: 'Mudança de Turno', status: 'INDEFERIDO' },
+        { id: 'PROT-2026-009', data: '22/02/2026', aluno: 'Camila Rocha Duarte', matricula: '2024-0155', curso: 'Assistente Administrativo (Tarde)', tipo: 'Justificativa de Falta (Trabalho)', status: 'PENDENTE' },
+        { id: 'PROT-2026-008', data: '21/02/2026', aluno: 'Rodrigo Pires Santana', matricula: '2024-0182', curso: 'Eletricista Predial (Noite)', tipo: 'Revisão de Frequência', status: 'EM_ANALISE' },
+        { id: 'PROT-2026-007', data: '20/02/2026', aluno: 'Aline Castro Martins', matricula: '2024-0199', curso: 'Informática Fundamental (Manhã)', tipo: 'Declaração de Conclusão', status: 'PENDENTE' }
+      ],
+      turmas: {
+        'T-ELEC-01': {
+          nome: 'Eletricista Predial & Residencial',
+          codigo: 'T-ELEC-01',
+          turno: 'Noite (18:30 às 21:45)',
+          sala: 'Oficina Técnica 03',
+          capacidade: 30,
+          professor: 'Prof. Marcos Vinicius Fontes',
+          alunos: [
+            { id: 1, matricula: '2024-0012', nome: 'Carlos Eduardo Ribeiro', frequenciaAcumulada: '94%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 2, matricula: '2024-0013', nome: 'Daniel Miranda Costa', frequenciaAcumulada: '91%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 3, matricula: '2024-0014', nome: 'Felipe Augusto Santos', frequenciaAcumulada: '82%', situacao: 'Alerta Frequência', presente: false, obs: 'Atestado apresentado' },
+            { id: 4, matricula: '2024-0015', nome: 'Gabriel Oliveira Lima', frequenciaAcumulada: '98%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 5, matricula: '2024-0016', nome: 'Henrique Alves Neves', frequenciaAcumulada: '89%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 6, matricula: '2024-0017', nome: 'Igor Silveira Prado', frequenciaAcumulada: '95%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 7, matricula: '2024-0018', nome: 'João Pedro Valente', frequenciaAcumulada: '73%', situacao: 'Risco de Evasão', presente: false, obs: 'Sem justificativa' },
+            { id: 8, matricula: '2024-0019', nome: 'Leandro Barbosa Cruz', frequenciaAcumulada: '100%', situacao: 'Destaque', presente: true, obs: '' }
+          ]
+        },
+        'T-ADM-02': {
+          nome: 'Assistente Administrativo & Financeiro',
+          codigo: 'T-ADM-02',
+          turno: 'Tarde (13:30 às 17:00)',
+          sala: 'Sala Multiuso 01',
+          capacidade: 35,
+          professor: 'Profª. Juliana Meirelles',
+          alunos: [
+            { id: 9, matricula: '2024-0045', nome: 'Mariana Souza Silveira', frequenciaAcumulada: '96%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 10, matricula: '2024-0046', nome: 'Natália Lemos Borges', frequenciaAcumulada: '92%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 11, matricula: '2024-0047', nome: 'Otávio Martins Guimarães', frequenciaAcumulada: '88%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 12, matricula: '2024-0048', nome: 'Patrícia Rocha Peçanha', frequenciaAcumulada: '97%', situacao: 'Regular', presente: true, obs: '' }
+          ]
+        },
+        'T-INFO-01': {
+          nome: 'Informática Fundamental & Office',
+          codigo: 'T-INFO-01',
+          turno: 'Manhã (08:00 às 11:30)',
+          sala: 'Laboratório de Informática',
+          capacidade: 25,
+          professor: 'Prof. Renato Siqueira',
+          alunos: [
+            { id: 13, matricula: '2024-0102', nome: 'Beatriz Mendes Albuquerque', frequenciaAcumulada: '99%', situacao: 'Destaque', presente: true, obs: '' },
+            { id: 14, matricula: '2024-0103', nome: 'Diego Pinheiro Soares', frequenciaAcumulada: '85%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 15, matricula: '2024-0104', nome: 'Eduarda Fagundes Lins', frequenciaAcumulada: '92%', situacao: 'Regular', presente: true, obs: '' }
+          ]
+        },
+        'T-CONF-01': {
+          nome: 'Confeitaria Artesanal & Panificação',
+          codigo: 'T-CONF-01',
+          turno: 'Manhã (08:30 às 12:00)',
+          sala: 'Cozinha Escola',
+          capacidade: 20,
+          professor: 'Chef Denise Antunes',
+          alunos: [
+            { id: 16, matricula: '2024-0089', nome: 'Lucas Gabriel Ferreira', frequenciaAcumulada: '78%', situacao: 'Alerta Frequência', presente: false, obs: 'Solicitou trancamento' },
+            { id: 17, matricula: '2024-0090', nome: 'Vanessa Torres Cunha', frequenciaAcumulada: '95%', situacao: 'Regular', presente: true, obs: '' },
+            { id: 18, matricula: '2024-0091', nome: 'Yasmin Figueiredo Vaz', frequenciaAcumulada: '90%', situacao: 'Regular', presente: true, obs: '' }
+          ]
+        }
+      },
+      materiais: [
+        { id: 1, aluno: 'Carlos Eduardo Ribeiro', matricula: '2024-0012', turma: 'Eletricista Predial', apostila: 'Entregue (Módulo I e II)', kit: 'Entregue (Alicate, Multímetro e Luvas)', data: '10/02/2026', status: 'Concluído' },
+        { id: 2, aluno: 'Mariana Souza Silveira', matricula: '2024-0045', turma: 'Assistente Administrativo', apostila: 'Entregue (Manual de Rotinas)', kit: 'Kit Escritório & Bloco', data: '12/02/2026', status: 'Concluído' },
+        { id: 3, aluno: 'Lucas Gabriel Ferreira', matricula: '2024-0089', turma: 'Confeitaria Artesanal', apostila: 'Entregue (Receituário)', kit: 'Pendente (Dólmã e Touca)', data: '-', status: 'Pendente' },
+        { id: 4, aluno: 'Beatriz Mendes Albuquerque', matricula: '2024-0102', turma: 'Informática Fundamental', apostila: 'Entregue (Apostila Digital)', kit: 'Não se aplica', data: '05/02/2026', status: 'Concluído' },
+        { id: 5, aluno: 'Felipe Augusto Santos', matricula: '2024-0014', turma: 'Eletricista Predial', apostila: 'Entregue (Módulo I)', kit: 'Aguardando Chegada de EPI', data: '-', status: 'Em Andamento' }
+      ]
+    };
+
+    // ALUNOS PARA O FORMULÁRIO DE DOCUMENTOS
+    const alunosDocBase = [
+      { nome: 'Carlos Eduardo Ribeiro', cpf: '128.490.337-12', matricula: '2024-0012', curso: 'Eletricista Predial & Residencial', carga: '160 Horas' },
+      { nome: 'Mariana Souza Silveira', cpf: '143.901.287-44', matricula: '2024-0045', curso: 'Assistente Administrativo & Financeiro', carga: '120 Horas' },
+      { nome: 'Lucas Gabriel Ferreira', cpf: '098.231.457-89', matricula: '2024-0089', curso: 'Confeitaria Artesanal & Panificação', carga: '100 Horas' },
+      { nome: 'Beatriz Mendes Albuquerque', cpf: '167.334.897-01', matricula: '2024-0102', curso: 'Informática Fundamental & Office', carga: '80 Horas' }
+    ];
+
+    // NAVEGAÇÃO DE ABAS
+    function switchTab(tabId) {
+      state.currentTab = tabId;
+
+      // Ocultar todas as abas
+      document.querySelectorAll('.tab-content').forEach(section => {
+        section.classList.add('hidden');
+      });
+
+      // Mostrar aba ativa
+      const activeSection = document.getElementById('tab-' + tabId);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+      }
+
+      // Estilizar botões da sidebar
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      // Ações específicas ao abrir cada aba
+      if (tabId === 'dashboard') {
+        renderDashboardRecentCalls();
+      } else if (tabId === 'requisicoes') {
+        renderRequisicoesTable();
+      } else if (tabId === 'cursos') {
+        carregarTurmaFrequencia();
+      } else if (tabId === 'materiais') {
+        renderMateriaisTable();
+      }
+    }
+
+    // ==========================================
+    // MÓDULO 1: DASHBOARD
+    // ==========================================
+    function renderDashboardRecentCalls() {
+      const tbody = document.getElementById('dashboard-recent-calls');
+      if (!tbody) return;
+
+      const recents = state.requisicoes.slice(0, 4);
+      tbody.innerHTML = recents.map(item => `
+        <tr class="hover:bg-slate-50/80 transition">
+          <td class="py-2.5 px-3 font-mono text-slate-500">${item.data}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${item.aluno}</td>
+          <td class="py-2.5 px-3">${item.curso}</td>
+          <td class="py-2.5 px-3">${item.tipo}</td>
+          <td class="py-2.5 px-3">${renderStatusBadge(item.status)}</td>
+          <td class="py-2.5 px-3 text-right">
+            <button onclick="switchTab('requisicoes')" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">Tramitar</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // ==========================================
+    // MÓDULO 2: ATENDIMENTO & REQUISIÇÕES
+    // ==========================================
+    let reqCurrentFilter = 'TODOS';
+
+    function filterRequisicoes(filterType) {
+      reqCurrentFilter = filterType;
+      document.querySelectorAll('.req-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === filterType) {
+          btn.classList.add('bg-blue-600', 'text-white');
+          btn.classList.remove('bg-slate-100', 'text-slate-600');
+        } else {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('bg-slate-100', 'text-slate-600');
+        }
+      });
+      renderRequisicoesTable();
+    }
+
+    function renderStatusBadge(status) {
+      switch (status) {
+        case 'PENDENTE':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800 border border-amber-200">Pendente</span>';
+        case 'EM_ANALISE':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-800 border border-blue-200">Em Análise</span>';
+        case 'DEFERIDO':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">Deferido</span>';
+        case 'INDEFERIDO':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-rose-100 text-rose-800 border border-rose-200">Indeferido</span>';
+        default:
+          return status;
+      }
+    }
+
+    function renderRequisicoesTable() {
+      const tbody = document.getElementById('requisicoes-table-body');
+      const search = (document.getElementById('reqSearchInput')?.value || '').toLowerCase();
+      if (!tbody) return;
+
+      const filtered = state.requisicoes.filter(item => {
+        const matchesFilter = reqCurrentFilter === 'TODOS' || item.status === reqCurrentFilter;
+        const matchesSearch = item.aluno.toLowerCase().includes(search) ||
+                              item.matricula.toLowerCase().includes(search) ||
+                              item.curso.toLowerCase().includes(search) ||
+                              item.tipo.toLowerCase().includes(search);
+        return matchesFilter && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Nenhum requerimento encontrado com os filtros aplicados.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(item => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-4">
+            <span class="font-mono font-bold text-slate-800">${item.id}</span>
+            <div class="text-[11px] text-slate-400">${item.data}</div>
+          </td>
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-800">${item.aluno}</div>
+            <div class="text-[11px] text-slate-500 font-mono">Matrícula: ${item.matricula}</div>
+          </td>
+          <td class="py-3 px-4 text-slate-700">${item.curso}</td>
+          <td class="py-3 px-4 font-medium text-slate-800">${item.tipo}</td>
+          <td class="py-3 px-4">${renderStatusBadge(item.status)}</td>
+          <td class="py-3 px-4 text-center">
+            <select onchange="alterarStatusRequisicao('${item.id}', this.value)" class="text-xs bg-white border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-600">
+              <option value="PENDENTE" ${item.status === 'PENDENTE' ? 'selected' : ''}>Pendente</option>
+              <option value="EM_ANALISE" ${item.status === 'EM_ANALISE' ? 'selected' : ''}>Em Análise</option>
+              <option value="DEFERIDO" ${item.status === 'DEFERIDO' ? 'selected' : ''}>Deferido</option>
+              <option value="INDEFERIDO" ${item.status === 'INDEFERIDO' ? 'selected' : ''}>Indeferido</option>
+            </select>
+          </td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="gerarParecerDoc('${item.aluno}', '${item.matricula}', '${item.tipo}', '${item.status}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded font-semibold transition" title="Emitir Parecer / Despacho">
+              <i class="fa-solid fa-print"></i> Despacho
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      atualizarBadgeRequisicoes();
+    }
+
+    function alterarStatusRequisicao(id, novoStatus) {
+      const item = state.requisicoes.find(r => r.id === id);
+      if (item) {
+        item.status = novoStatus;
+        showToast(`Status do protocolo ${id} atualizado para ${novoStatus}.`);
+        renderRequisicoesTable();
+        renderDashboardRecentCalls();
+      }
+    }
+
+    function atualizarBadgeRequisicoes() {
+      const pendentes = state.requisicoes.filter(r => r.status === 'PENDENTE').length;
+      const badge = document.getElementById('badge-pendentes');
+      if (badge) badge.innerText = pendentes;
+    }
+
+    function openNovaRequisicaoModal() {
+      document.getElementById('modalNovoProtocolo').classList.remove('hidden');
+    }
+
+    function fecharNovoProtocoloModal() {
+      document.getElementById('modalNovoProtocolo').classList.add('hidden');
+    }
+
+    function salvarNovoProtocolo(e) {
+      e.preventDefault();
+      const novo = {
+        id: `PROT-2026-0${state.requisicoes.length + 15}`,
+        data: new Date().toLocaleDateString('pt-BR'),
+        aluno: document.getElementById('novoAlunoNome').value,
+        matricula: document.getElementById('novoAlunoMatricula').value,
+        curso: document.getElementById('novoAlunoCurso').value,
+        tipo: document.getElementById('novoTipoSolicitacao').value,
+        status: 'PENDENTE'
+      };
+      state.requisicoes.unshift(novo);
+      fecharNovoProtocoloModal();
+      showToast('Novo protocolo cadastrado com sucesso!');
+      renderRequisicoesTable();
+      renderDashboardRecentCalls();
+    }
+
+    // ==========================================
+    // MÓDULO 3: CURSOS, TURMAS & FREQUÊNCIA
+    // ==========================================
+    function carregarTurmaFrequencia() {
+      const turmaKey = document.getElementById('selectTurmaFrequencia').value;
+      const turma = state.turmas[turmaKey];
+      if (!turma) return;
+
+      // Card Informativo
+      const infoCard = document.getElementById('turmaInfoCard');
+      const totalAlunos = turma.alunos.length;
+      const ocupacaoPct = Math.round((totalAlunos / turma.capacidade) * 100);
+
+      infoCard.innerHTML = `
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-blue-500 text-white text-[11px] font-bold">${turma.codigo}</span>
+            <span class="text-xs text-blue-200">${turma.turno} • ${turma.sala}</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-1">${turma.nome}</h3>
+          <p class="text-xs text-slate-300">Instrutor Responsável: <strong class="text-white">${turma.professor}</strong></p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-right">
+            <div class="text-xs text-blue-200">Capacidade da Turma</div>
+            <div class="text-base font-extrabold text-white">${totalAlunos} / ${turma.capacidade} alunos (${ocupacaoPct}%)</div>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-blue-700/60 border border-blue-400/30 flex items-center justify-center text-xl text-blue-200">
+            <i class="fa-solid fa-users"></i>
+          </div>
+        </div>
+      `;
+
+      renderTabelaFrequencia(turma.alunos);
+    }
+
+    function renderTabelaFrequencia(alunos) {
+      const tbody = document.getElementById('frequencia-table-body');
+      let presentes = 0;
+      let faltas = 0;
+
+      tbody.innerHTML = alunos.map((aluno, index) => {
+        if (aluno.presente) presentes++; else faltas++;
+
+        return `
+          <tr class="hover:bg-slate-50 transition ${!aluno.presente ? 'bg-rose-50/30' : ''}">
+            <td class="py-3 px-4 text-center font-bold text-slate-400">${index + 1}</td>
+            <td class="py-3 px-4 font-mono font-medium text-slate-600">${aluno.matricula}</td>
+            <td class="py-3 px-4 font-bold text-slate-800">${aluno.nome}</td>
+            <td class="py-3 px-4 font-bold ${parseInt(aluno.frequenciaAcumulada) < 75 ? 'text-rose-600' : 'text-slate-700'}">${aluno.frequenciaAcumulada}</td>
+            <td class="py-3 px-4">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${
+                aluno.situacao === 'Destaque' ? 'bg-indigo-100 text-indigo-800' :
+                aluno.situacao === 'Alerta Frequência' ? 'bg-amber-100 text-amber-800' :
+                aluno.situacao === 'Risco de Evasão' ? 'bg-rose-100 text-rose-800 font-bold' :
+                'bg-slate-100 text-slate-700'
+              }">${aluno.situacao}</span>
+            </td>
+            <td class="py-3 px-4 text-center">
+              <button onclick="togglePresenca(${aluno.id})" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 mx-auto ${
+                aluno.presente ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs' : 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs'
+              }">
+                <i class="fa-solid ${aluno.presente ? 'fa-check' : 'fa-xmark'}"></i>
+                <span>${aluno.presente ? 'Presente' : 'Falta'}</span>
+              </button>
+            </td>
+            <td class="py-3 px-4">
+              <input type="text" value="${aluno.obs}" onchange="atualizarObsAluno(${aluno.id}, this.value)" placeholder="Anotação..." class="w-full text-xs p-1 bg-slate-50 border border-slate-200 rounded focus:ring-1 focus:ring-blue-600">
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('count-presentes').innerText = presentes;
+      document.getElementById('count-faltas').innerText = faltas;
+    }
+
+    function togglePresenca(alunoId) {
+      const turmaKey = document.getElementById('selectTurmaFrequencia').value;
+      const aluno = state.turmas[turmaKey].alunos.find(a => a.id === alunoId);
+      if (aluno) {
+        aluno.presente = !aluno.presente;
+        renderTabelaFrequencia(state.turmas[turmaKey].alunos);
+      }
+    }
+
+    function marcarTodos(statusBool) {
+      const turmaKey = document.getElementById('selectTurmaFrequencia').value;
+      state.turmas[turmaKey].alunos.forEach(a => a.presente = statusBool);
+      renderTabelaFrequencia(state.turmas[turmaKey].alunos);
+      showToast(statusBool ? 'Todos os alunos foram marcados com presença.' : 'Presenças desmarcadas.');
+    }
+
+    function atualizarObsAluno(alunoId, texto) {
+      const turmaKey = document.getElementById('selectTurmaFrequencia').value;
+      const aluno = state.turmas[turmaKey].alunos.find(a => a.id === alunoId);
+      if (aluno) aluno.obs = texto;
+    }
+
+    function salvarChamadaAtual() {
+      const data = document.getElementById('dataChamada').value;
+      const turmaKey = document.getElementById('selectTurmaFrequencia').value;
+      showToast(`Diário de presença da turma ${turmaKey} salvo com sucesso para o dia ${data}!`);
+    }
+
+    // ==========================================
+    // MÓDULO 4: EMISSÃO DE DOCUMENTOS
+    // ==========================================
+    function selectDocType(type) {
+      state.currentDocType = type;
+      document.querySelectorAll('.doc-type-card').forEach(c => {
+        c.classList.remove('border-blue-600');
+        c.classList.add('border-transparent');
+      });
+
+      const selected = document.getElementById('card-doc-' + type);
+      if (selected) {
+        selected.classList.add('border-blue-600');
+        selected.classList.remove('border-transparent');
+      }
+
+      const subtipo = document.getElementById('subtipo-declaracao-container');
+      const titleForm = document.getElementById('form-doc-title');
+
+      if (type === 'declaracao') {
+        subtipo.classList.remove('hidden');
+        titleForm.innerText = 'Parâmetros da Declaração Escolar';
+      } else if (type === 'carteirinha') {
+        subtipo.classList.add('hidden');
+        titleForm.innerText = 'Parâmetros da Carteirinha Estudantil';
+      } else {
+        subtipo.classList.add('hidden');
+        titleForm.innerText = 'Parâmetros do Certificado Oficial';
+      }
+    }
+
+    function preencherDadosAlunoDoc(index) {
+      if (index === '') return;
+      const aluno = alunosDocBase[parseInt(index)];
+      if (!aluno) return;
+
+      document.getElementById('docAlunoNome').value = aluno.nome;
+      document.getElementById('docAlunoCPF').value = aluno.cpf;
+      document.getElementById('docAlunoMatricula').value = aluno.matricula;
+      document.getElementById('docAlunoCurso').value = aluno.curso;
+      document.getElementById('docAlunoCarga').value = aluno.carga;
+      gerarNovoHash();
+    }
+
+    function gerarNovoHash() {
+      const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+      const ano = new Date().getFullYear();
+      document.getElementById('docAlunoHash').value = `CCP-IG-${ano}-${rand}`;
+    }
+
+    function visualizarDocumento() {
+      const modal = document.getElementById('modalDocumento');
+      const renderZone = document.getElementById('docRenderZone');
+      const nome = document.getElementById('docAlunoNome').value || 'Nome do Aluno';
+      const cpf = document.getElementById('docAlunoCPF').value || '000.000.000-00';
+      const mat = document.getElementById('docAlunoMatricula').value || '2026-0000';
+      const curso = document.getElementById('docAlunoCurso').value || 'Curso Profissionalizante';
+      const carga = document.getElementById('docAlunoCarga').value || '160 Horas';
+      const hash = document.getElementById('docAlunoHash').value || 'CCP-VALID-2026';
+      const dataHoje = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+      if (state.currentDocType === 'certificado') {
+        // LAYOUT CERTIFICADO DE CONCLUSÃO
+        renderZone.innerHTML = `
+          <div class="border-8 border-double border-slate-800 p-8 md:p-12 relative bg-[#fdfbf7] text-slate-800 shadow-inner">
+            <!-- Brasão & Header Oficial -->
+            <div class="text-center space-y-2 mb-8">
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-14 h-14 rounded-full bg-blue-900 text-amber-400 flex items-center justify-center text-2xl font-bold shadow-md">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+              </div>
+              <h2 class="text-xs uppercase tracking-widest font-bold text-slate-500">Estado do Rio de Janeiro • Município de Iguaba Grande</h2>
+              <h1 class="text-sm font-extrabold uppercase text-slate-800 tracking-wider">Secretaria Municipal de Trabalho e Renda</h1>
+              <p class="text-xs font-semibold text-blue-900">Centro de Capacitação Profissional (CCP Iguaba Grande)</p>
+              <div class="w-32 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
+            </div>
+
+            <!-- Título Certificado -->
+            <div class="text-center my-6">
+              <h2 class="font-serif text-3xl md:text-4xl font-bold tracking-widest text-slate-900 uppercase">Certificado de Conclusão</h2>
+            </div>
+
+            <!-- Texto Principal -->
+            <div class="text-center text-sm md:text-base leading-relaxed space-y-4 max-w-2xl mx-auto my-8">
+              <p>Certificamos que</p>
+              <p class="text-2xl font-extrabold text-blue-950 underline decoration-amber-500 underline-offset-8">${nome}</p>
+              <p class="text-xs md:text-sm text-slate-600">Portador(a) do CPF nº <strong>${cpf}</strong> e Matrícula nº <strong>${mat}</strong>,</p>
+              <p>concluiu com êxito e aproveitamento técnico satisfatório o curso de capacitação profissional em</p>
+              <p class="text-xl font-bold text-slate-900 uppercase tracking-wide bg-amber-50 py-2 border-y border-amber-200">${curso}</p>
+              <p class="text-xs md:text-sm text-slate-700">com carga horária total de <strong>${carga}</strong>, cumprindo todas as exigências pedagógicas e normativas da instituição.</p>
+            </div>
+
+            <!-- Local e Data -->
+            <div class="text-center text-xs text-slate-600 mt-8 mb-12">
+              Iguaba Grande - RJ, ${dataHoje}.
+            </div>
+
+            <!-- Assinaturas e Autenticação -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end pt-6 border-t border-slate-300">
+              <div class="text-center">
+                <div class="w-44 border-b border-slate-800 mx-auto mb-1"></div>
+                <p class="text-[11px] font-bold text-slate-800">Diretoria Pedagógica</p>
+                <p class="text-[10px] text-slate-500">CCP - Iguaba Grande</p>
+              </div>
+
+              <!-- QR CODE SIMULADO DE AUTENTICIDADE -->
+              <div class="flex flex-col items-center justify-center p-3 bg-white rounded-lg border border-slate-300">
+                <!-- SVG QR Code Icone Vetorial -->
+                <div class="w-20 h-20 bg-slate-100 flex items-center justify-center p-1 rounded border border-slate-200">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=VALIDACAO-CCP-${hash}" alt="QR Code" class="w-full h-full object-contain" onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<i class=\'fa-solid fa-qrcode text-4xl text-slate-800\'></i>';">
+                </div>
+                <span class="text-[9px] font-mono font-bold text-slate-700 mt-1">HASH: ${hash}</span>
+                <span class="text-[8px] text-slate-400">Escaneie para validar autenticidade</span>
+              </div>
+
+              <div class="text-center">
+                <div class="w-44 border-b border-slate-800 mx-auto mb-1"></div>
+                <p class="text-[11px] font-bold text-slate-800">Helena Vasconcelos</p>
+                <p class="text-[10px] text-slate-500">Secretária Escolar - Portaria 104/2024</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (state.currentDocType === 'declaracao') {
+        // LAYOUT DECLARAÇÃO ESCOLAR
+        const tipoDeclaracao = document.getElementById('docDeclaracaoTipo').value;
+        renderZone.innerHTML = `
+          <div class="max-w-2xl mx-auto p-8 bg-white border border-slate-200 text-slate-800 space-y-6">
+            <div class="flex items-center gap-4 border-b-2 border-blue-900 pb-4">
+              <div class="w-16 h-16 rounded-xl bg-blue-900 text-white flex items-center justify-center text-3xl font-bold">
+                <i class="fa-solid fa-landmark"></i>
+              </div>
+              <div>
+                <h3 class="text-xs uppercase font-bold text-slate-500">Prefeitura Municipal de Iguaba Grande</h3>
+                <h2 class="text-sm font-extrabold text-blue-950 uppercase">Secretaria Municipal de Trabalho e Renda</h2>
+                <p class="text-xs font-semibold text-slate-700">Centro de Capacitação Profissional - Secretaria Acadêmica</p>
+              </div>
+            </div>
+
+            <div class="text-center py-4">
+              <h1 class="text-xl font-bold uppercase tracking-wide text-slate-900 underline decoration-blue-600 underline-offset-4">${tipoDeclaracao.toUpperCase()}</h1>
+              <p class="text-xs text-slate-500 font-mono mt-1">Protocolo nº: ${hash}</p>
+            </div>
+
+            <div class="text-sm leading-relaxed space-y-4 text-justify text-slate-800">
+              <p>Declaramos para os devidos fins de direito, a pedido da parte interessada, que o(a) aluno(a) <strong>${nome}</strong>, inscrito(a) no Cadastro de Pessoas Físicas sob o nº <strong>${cpf}</strong> e regularmente registrado(a) sob o número de matrícula <strong>${mat}</strong>, encontra-se devidamente matriculado(a) e com frequência regular nas atividades letivas do curso de <strong>${curso}</strong>, com carga horária total de <strong>${carga}</strong>, ministrado neste Centro de Capacitação Profissional (CCP).</p>
+              
+              <p>Por ser a expressão da verdade e para que surta seus efeitos legais perante empresas, instituições de estágio ou concessionárias de transporte coletivo, firmamos a presente declaração.</p>
+            </div>
+
+            <div class="pt-8 text-right text-xs text-slate-600">
+              Iguaba Grande - RJ, ${dataHoje}.
+            </div>
+
+            <div class="pt-12 text-center">
+              <div class="w-64 border-b border-slate-700 mx-auto mb-1"></div>
+              <p class="text-xs font-bold text-slate-900">Secretaria do Centro de Capacitação Profissional</p>
+              <p class="text-[11px] text-slate-500">Iguaba Grande - Estado do Rio de Janeiro</p>
+              <div class="mt-4 text-[10px] font-mono text-slate-400">Validação digital disponível via código: ${hash}</div>
+            </div>
+          </div>
+        `;
+      } else {
+        // LAYOUT CARTEIRINHA ESTUDANTIL (CRACHÁ)
+        renderZone.innerHTML = `
+          <div class="max-w-md mx-auto p-6 bg-slate-100 flex flex-col items-center">
+            <p class="text-xs text-slate-500 mb-3 no-print">Visualização em formato de crachá de bolso (Frente e Verso)</p>
+            
+            <div class="w-80 bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-slate-300 relative">
+              <!-- Topo Colorido Institucional -->
+              <div class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white p-4 text-center">
+                <div class="flex items-center justify-center gap-2 mb-1">
+                  <i class="fa-solid fa-graduation-cap text-amber-400 text-lg"></i>
+                  <span class="font-bold text-xs tracking-wider">CCP IGUABA GRANDE</span>
+                </div>
+                <p class="text-[10px] text-blue-200 uppercase">Carteira de Identificação Estudantil</p>
+              </div>
+
+              <!-- Foto e Dados -->
+              <div class="p-5 flex flex-col items-center text-center space-y-3">
+                <div class="w-24 h-28 rounded-xl bg-slate-200 border-2 border-blue-600 flex flex-col items-center justify-center text-slate-400 overflow-hidden shadow-sm">
+                  <i class="fa-solid fa-user text-4xl text-slate-400"></i>
+                  <span class="text-[9px] text-slate-500 mt-1 font-semibold">3x4 Oficial</span>
+                </div>
+
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900">${nome}</h3>
+                  <p class="text-xs font-bold text-blue-700 mt-0.5">${curso}</p>
+                </div>
+
+                <div class="w-full bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-left text-[11px] space-y-1">
+                  <div class="flex justify-between"><span class="text-slate-500">Matrícula:</span> <strong class="font-mono text-slate-800">${mat}</strong></div>
+                  <div class="flex justify-between"><span class="text-slate-500">CPF:</span> <strong class="font-mono text-slate-800">${cpf}</strong></div>
+                  <div class="flex justify-between"><span class="text-slate-500">Ano Letivo:</span> <strong class="text-emerald-700">2026.2</strong></div>
+                  <div class="flex justify-between"><span class="text-slate-500">Validade:</span> <strong class="text-rose-700">31/12/2026</strong></div>
+                </div>
+
+                <!-- Código de Barras Simulado -->
+                <div class="w-full pt-1 flex flex-col items-center">
+                  <div class="flex gap-1 h-7 items-center justify-center">
+                    <span class="w-1 h-full bg-slate-800"></span>
+                    <span class="w-0.5 h-full bg-slate-800"></span>
+                    <span class="w-1.5 h-full bg-slate-800"></span>
+                    <span class="w-0.5 h-full bg-slate-800"></span>
+                    <span class="w-2 h-full bg-slate-800"></span>
+                    <span class="w-1 h-full bg-slate-800"></span>
+                    <span class="w-0.5 h-full bg-slate-800"></span>
+                    <span class="w-1.5 h-full bg-slate-800"></span>
+                    <span class="w-1 h-full bg-slate-800"></span>
+                    <span class="w-2 h-full bg-slate-800"></span>
+                  </div>
+                  <span class="text-[9px] font-mono text-slate-500 mt-1">${hash}</span>
+                </div>
+              </div>
+
+              <!-- Rodapé da Carteirinha -->
+              <div class="bg-slate-100 p-2 text-center text-[9px] text-slate-500 border-t border-slate-200">
+                Prefeitura de Iguaba Grande • Sec. de Trabalho e Renda
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function fecharModalDocumento() {
+      document.getElementById('modalDocumento').classList.add('hidden');
+    }
+
+    function gerarParecerDoc(aluno, matricula, tipo, status) {
+      state.currentDocType = 'declaracao';
+      document.getElementById('docAlunoNome').value = aluno;
+      document.getElementById('docAlunoMatricula').value = matricula;
+      visualizarDocumento();
+    }
+
+    // ==========================================
+    // MÓDULO 5: MATERIAL DIDÁTICO
+    // ==========================================
+    function renderMateriaisTable() {
+      const tbody = document.getElementById('materiais-table-body');
+      const filtro = document.getElementById('filtroTurmaMaterial').value;
+      if (!tbody) return;
+
+      const filtered = state.materiais.filter(m => filtro === 'TODAS' || m.turma.includes(filtro));
+
+      tbody.innerHTML = filtered.map(item => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-4 font-bold text-slate-800">${item.aluno}</td>
+          <td class="py-3 px-4 text-slate-600">${item.turma}</td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded text-[11px] font-medium">${item.apostila}</span></td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[11px] font-medium">${item.kit}</span></td>
+          <td class="py-3 px-4 font-mono text-slate-500">${item.data}</td>
+          <td class="py-3 px-4 text-center">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${
+              item.status === 'Concluído' ? 'bg-emerald-100 text-emerald-800' :
+              item.status === 'Pendente' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'
+            }">${item.status}</span>
+          </td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="confirmarEntregaMaterial(${item.id})" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 px-2.5 py-1 rounded font-semibold transition">
+              <i class="fa-solid fa-pen-to-square"></i> Dar Baixa
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function confirmarEntregaMaterial(id) {
+      const item = state.materiais.find(m => m.id === id);
+      if (item) {
+        item.status = 'Concluído';
+        item.data = new Date().toLocaleDateString('pt-BR');
+        item.kit = 'Entregue (Assinado)';
+        item.apostila = 'Entregue (Assinado)';
+        showToast(`Material de ${item.aluno} marcado como entregue!`);
+        renderMateriaisTable();
+      }
+    }
+
+    function abrirNovoLoteModal() {
+      showToast('Estoque registrado: +50 apostilas adicionadas ao almoxarifado.');
+    }
+
+    // ==========================================
+    // BUSCA GLOBAL NO HEADER
+    // ==========================================
+    function handleGlobalSearch(term) {
+      if (term.length > 2) {
+        // Se buscar termo específico, navega e filtra requisições
+        switchTab('requisicoes');
+        const searchInput = document.getElementById('reqSearchInput');
+        if (searchInput) {
+          searchInput.value = term;
+          renderRequisicoesTable();
+        }
+      }
+    }
+
+    // UTILITÁRIO: TOAST
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMsg');
+      if (toast && toastMsg) {
+        toastMsg.innerText = msg;
+        toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        }, 3200);
+      }
+    }
+
+    // INICIALIZAÇÃO AO CARREGAR
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab('dashboard');
+      atualizarTodasTelasCursos();
+
+      // ATUALIZAÇÃO AUTOMÁTICA DA DATA E ANO LETIVO ATUAL
+      try {
+        const hoje = new Date();
+        const anoAtual = hoje.getFullYear();
+        const semestre = hoje.getMonth() >= 6 ? '2' : '1';
+        const dataFormatada = hoje.toLocaleDateString('pt-BR');
+        
+        // Atualiza badges de Ano Letivo
+        document.querySelectorAll('.font-mono, .font-medium, .font-semibold').forEach(el => {
+          if (el.textContent && el.textContent.includes('Ano 202')) {
+            el.textContent = `Ano ${anoAtual}.${semestre}`;
+          }
+          if (el.textContent && el.textContent.includes('Ano Letivo 202')) {
+            el.textContent = `Ano Letivo ${anoAtual}.${semestre}`;
+          }
+        });
+
+        const dataChamadaInput = document.getElementById('dataChamada');
+        if (dataChamadaInput) {
+          dataChamadaInput.value = hoje.toISOString().split('T')[0];
+        }
+      } catch (e) {
+        console.warn('Erro ao atualizar data atual:', e);
+      }
+
+    });
+
+    
+    
+    
+    // ========================================================
+    // BASE E APRESENTAÇÃO DE CURSOS E TURMAS (PADRÃO SGE CCP)
+    // ========================================================
+    const DADOS_CURSOS_BASE = [
+      {
+        nome: "Confeitaria Artesanal & Panificação",
+        carga_horaria: "160",
+        espera: 18,
+        turmas: [
+          { id: "T-CONF-01", identificador: "TURMA A (MANHÃ)", dia_semana: "Terça e Quinta", turno: "MANHÃ", horario: "08h às 11h30", matriculados: 20, vagas_limite: 20 },
+          { id: "T-CONF-02", identificador: "TURMA B (TARDE)", dia_semana: "Quarta e Sexta", turno: "TARDE", horario: "13h30 às 17h00", matriculados: 25, vagas_limite: 25 }
+        ]
+      },
+      {
+        nome: "Corte e Costura & Modelagem Criativa",
+        carga_horaria: "180",
+        espera: 24,
+        turmas: [
+          { id: "T-COST-01", identificador: "TURMA 01 (MANHÃ)", dia_semana: "Segunda e Quarta", turno: "MANHÃ", horario: "08h às 11h30", matriculados: 20, vagas_limite: 20 },
+          { id: "T-COST-02", identificador: "TURMA 02 (TARDE)", dia_semana: "Terça e Quinta", turno: "TARDE", horario: "13h30 às 17h00", matriculados: 20, vagas_limite: 20 }
+        ]
+      },
+      {
+        nome: "Manicure, Pedicure & Unhas em Gel",
+        carga_horaria: "120",
+        espera: 12,
+        turmas: [
+          { id: "T-MANI-01", identificador: "TURMA 01 (MANHÃ)", dia_semana: "Terça e Quinta", turno: "MANHÃ", horario: "08h às 11h30", matriculados: 20, vagas_limite: 20 },
+          { id: "T-MANI-02", identificador: "TURMA 02 (TARDE)", dia_semana: "Quarta e Sexta", turno: "TARDE", horario: "13h30 às 17h00", matriculados: 18, vagas_limite: 20 }
+        ]
+      },
+      {
+        nome: "Massoterapia & Shiatsu Clínico",
+        carga_horaria: "140",
+        espera: 9,
+        turmas: [
+          { id: "T-MASS-01", identificador: "TURMA A (MANHÃ)", dia_semana: "Segunda e Quarta", turno: "MANHÃ", horario: "08h às 11h30", matriculados: 18, vagas_limite: 20 },
+          { id: "T-MASS-02", identificador: "TURMA B (NOITE)", dia_semana: "Terça e Quinta", turno: "NOITE", horario: "18h às 21h30", matriculados: 18, vagas_limite: 20 }
+        ]
+      },
+      {
+        nome: "Bartender Profissional & Coquetelaria",
+        carga_horaria: "100",
+        espera: 15,
+        turmas: [
+          { id: "T-BART-01", identificador: "TURMA ÚNICA (NOITE)", dia_semana: "Terça e Quinta", turno: "NOITE", horario: "18h às 21h30", matriculados: 30, vagas_limite: 30 }
+        ]
+      },
+      {
+        nome: "Lancheiro & Salgadeiro Comercial",
+        carga_horaria: "120",
+        espera: 8,
+        turmas: [
+          { id: "T-LANCH-01", identificador: "TURMA 01 (TARDE)", dia_semana: "Segunda e Quarta", turno: "TARDE", horario: "13h30 às 17h00", matriculados: 20, vagas_limite: 20 },
+          { id: "T-LANCH-02", identificador: "TURMA 02 (NOITE)", dia_semana: "Quarta e Sexta", turno: "NOITE", horario: "18h às 21h30", matriculados: 15, vagas_limite: 15 }
+        ]
+      },
+      {
+        nome: "Recepção, Hotelaria & Atendimento",
+        carga_horaria: "80",
+        espera: 7,
+        turmas: [
+          { id: "T-RECEP-01", identificador: "TURMA 01 (MANHÃ)", dia_semana: "Terça e Quinta", turno: "MANHÃ", horario: "08h às 11h30", matriculados: 25, vagas_limite: 25 },
+          { id: "T-RECEP-02", identificador: "TURMA 02 (NOITE)", dia_semana: "Segunda e Quarta", turno: "NOITE", horario: "18h às 21h30", matriculados: 23, vagas_limite: 25 }
+        ]
+      },
+      {
+        nome: "Organização e Produção de Eventos",
+        carga_horaria: "80",
+        espera: 6,
+        turmas: [
+          { id: "T-EVEN-01", identificador: "TURMA A (NOITE)", dia_semana: "Terça e Quinta", turno: "NOITE", horario: "18h às 21h30", matriculados: 32, vagas_limite: 35 }
+        ]
+      },
+      {
+        nome: "Informática Básica & Tecnologias Digitais",
+        carga_horaria: "120",
+        espera: 11,
+        turmas: [
+          { id: "T-INFO-01", identificador: "TURMA 01 (MANHÃ)", dia_semana: "Segunda e Quarta", turno: "MANHÃ", horario: "08h às 11h30", matriculados: 20, vagas_limite: 20 },
+          { id: "T-INFO-02", identificador: "TURMA 02 (TARDE)", dia_semana: "Terça e Quinta", turno: "TARDE", horario: "13h30 às 17h00", matriculados: 20, vagas_limite: 20 },
+          { id: "T-INFO-03", identificador: "TURMA 03 (NOITE)", dia_semana: "Segunda e Quarta", turno: "NOITE", horario: "18h às 21h30", matriculados: 16, vagas_limite: 20 }
+        ]
+      },
+      {
+        nome: "Design de Sobrancelhas & Estética Facial",
+        carga_horaria: "100",
+        espera: 8,
+        turmas: [
+          { id: "T-DESI-01", identificador: "TURMA ÚNICA (MANHÃ)", dia_semana: "Sexta e Sábado", turno: "MANHÃ", horario: "08h às 12h00", matriculados: 28, vagas_limite: 30 }
+        ]
+      }
+    ];
+
+    let cursosAtuaisMemoria = DADOS_CURSOS_BASE;
+    let turnoAtivoFiltro = 'TODOS';
+    let termoBuscaCursos = '';
+
+    function renderizarCardsCursos(cursosLista, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const query = (termoBuscaCursos || '').toLowerCase().trim();
+      const turno = (turnoAtivoFiltro || 'TODOS').toUpperCase().trim();
+
+      let filtrados = cursosLista.filter(c => {
+        const bateCurso = !query || c.nome.toLowerCase().includes(query);
+        const bateTurma = !query || c.turmas.some(t => t.identificador.toLowerCase().includes(query) || t.dia_semana.toLowerCase().includes(query));
+        return bateCurso || bateTurma;
+      });
+
+      if (filtrados.length === 0) {
+        container.innerHTML = '<div class="col-span-full p-8 text-center text-slate-500 bg-white rounded-xl border border-slate-200 font-medium">Nenhum curso ou turma encontrado com estes parâmetros.</div>';
+        return;
+      }
+
+      let html = '';
+      filtrados.forEach(curso => {
+        let turmas = curso.turmas;
+        if (turno !== 'TODOS') {
+          turmas = turmas.filter(t => (t.turno || '').toUpperCase().includes(turno));
+        }
+
+        if (turmas.length === 0 && turno !== 'TODOS') return;
+
+        let totalVagas = 0;
+        let totalMatriculados = 0;
+        curso.turmas.forEach(t => {
+          totalVagas += (parseInt(t.vagas_limite) || 0);
+          totalMatriculados += (parseInt(t.matriculados) || 0);
+        });
+
+        const pctGeral = totalVagas > 0 ? Math.min(Math.round((totalMatriculados / totalVagas) * 100), 100) : 100;
+
+        html += `
+          <div class="curso-simplified-block">
+            <div class="curso-simplified-header">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="text-base flex-shrink-0">📚</span>
+                  <h3 class="font-extrabold text-slate-900 text-sm leading-snug truncate" title="${curso.nome}">${curso.nome}</h3>
+                </div>
+                <span class="text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded font-bold border border-slate-200 flex-shrink-0 whitespace-nowrap">
+                  ⏳ ${curso.carga_horaria ? curso.carga_horaria + 'h' : '120h'}
+                </span>
+              </div>
+
+              <div class="flex items-center justify-between gap-1 text-[11px] pt-1 border-t border-slate-50 flex-wrap">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded text-[10px]">
+                    ${curso.turmas.length} Turma${curso.turmas.length > 1 ? 's' : ''}
+                  </span>
+                  ${curso.espera > 0 ? `<span class="badge-espera text-[10px] py-0.5 px-2 font-bold"><i class="fa-solid fa-hourglass-half mr-0.5"></i> ${curso.espera} espera</span>` : ''}
+                </div>
+                <span class="font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded text-[10px]">
+                  ${totalMatriculados} / ${totalVagas} (${pctGeral}%)
+                </span>
+              </div>
+            </div>
+
+            <div class="turma-grid">
+              ${turmas.map(turma => {
+                const matriculados = parseInt(turma.matriculados) || 0;
+                const vagasLimite = parseInt(turma.vagas_limite) || 1;
+                const pct = Math.min(Math.round((matriculados / vagasLimite) * 100), 100);
+
+                let barColor = '#0284c7';
+                let badgeClass = 'badge-disponivel';
+                let statusLabel = 'Em Andamento';
+
+                if (pct >= 100) {
+                  barColor = '#16a34a';
+                  badgeClass = 'badge-ideal';
+                  statusLabel = 'Lotada';
+                } else if (pct >= 90) {
+                  barColor = '#0284c7';
+                  badgeClass = 'badge-disponivel';
+                  statusLabel = 'Quase Lotada';
+                }
+
+                return `
+                  <div class="turma-card" onclick="window.open('https://klausslosso.github.io/CURSOS/', '_blank')" title="Clique para gerenciar turma no sistema de cursos">
+                    <div>
+                      <div class="flex items-center justify-between gap-1">
+                        <span class="font-bold text-xs text-slate-900 truncate">${turma.identificador}</span>
+                        <span class="${badgeClass}">${statusLabel}</span>
+                      </div>
+                      <div class="text-[11px] text-slate-500 font-medium mt-0.5 flex items-center justify-between">
+                        <span><i class="fa-regular fa-calendar-days text-[10px] text-slate-400 mr-1"></i>${turma.dia_semana}</span>
+                        <span class="font-bold text-slate-700 text-[10px] bg-slate-200/60 px-1.5 py-0.2 rounded">${turma.turno}</span>
+                      </div>
+                      <div class="text-[10px] text-slate-400 mt-0.5">
+                        <i class="fa-regular fa-clock text-[9px] mr-1"></i>${turma.horario || 'Turno Regular'}
+                      </div>
+                    </div>
+
+                    <div class="pt-1.5 border-t border-slate-100">
+                      <div class="flex justify-between items-center text-[11px] mb-1 font-bold">
+                        <span class="text-slate-600">${matriculados} / ${vagasLimite} Alunos</span>
+                        <span class="text-slate-900">${pct}%</span>
+                      </div>
+                      <div class="capacity-bar">
+                        <div class="capacity-fill" style="width: ${pct}%; background-color: ${barColor};"></div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function atualizarTodasTelasCursos() {
+      renderizarCardsCursos(cursosAtuaisMemoria, 'dashboard-cursos-container');
+      renderizarCardsCursos(cursosAtuaisMemoria, 'tab-turmas-ativas-container');
+    }
+
+    function filtrarCursosETurmasInstantaneo(termo) {
+      termoBuscaCursos = termo;
+      atualizarTodasTelasCursos();
+    }
+
+    function filtrarTurnoCursos(turno) {
+      turnoAtivoFiltro = turno;
+      document.querySelectorAll('.btn-turno').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-blue-700', 'shadow-xs', 'font-bold');
+        btn.classList.add('text-slate-600', 'font-medium');
+      });
+
+      const btnAtivo = document.getElementById('btn-turno-' + turno.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+      if (btnAtivo) {
+        btnAtivo.classList.remove('text-slate-600', 'font-medium');
+        btnAtivo.classList.add('bg-white', 'text-blue-700', 'shadow-xs', 'font-bold');
+      }
+
+      atualizarTodasTelasCursos();
+    }
+
+
+    // SINCRONIZAÇÃO EM TEMPO REAL COM A BASE DE CURSOS / ALUNOS DO CCP VIA SUPABASE
+    async function sincronizarDadosCursosCCP() {
+      atualizarTodasTelasCursos();
+
+      try {
+        const [resCursos, resTurmas, resAlunos] = await Promise.all([
+          supa.from('cursos').select('*').eq('status', 'Ativo').order('nome'),
+          supa.from('turmas').select('*').neq('status', 'Inativo').order('curso_nome'),
+          supa.from('alunos_ccp').select('cpf, cursos')
+        ]);
+
+        if (resCursos.data && resCursos.data.length > 0) {
+          const cursosSupabase = resCursos.data;
+          const turmasSupabase = resTurmas.data || [];
+          const alunosSupabase = resAlunos.data || [];
+
+          let totalCursando = 0;
+          let totalEspera = 0;
+          const turmasAtivasSet = new Set(turmasSupabase.map(t => `${t.curso_nome} [${t.identificador}]`));
+
+          alunosSupabase.forEach(a => {
+            if (a.cursos) {
+              const arr = a.cursos.split(' | ').map(c => c.trim());
+              arr.forEach(c => {
+                if (c.includes('[Pendente/Lista de Espera]')) {
+                  totalEspera++;
+                } else if (!c.includes('(INATIVO)') && turmasAtivasSet.has(c)) {
+                  totalCursando++;
+                }
+              });
+            }
+          });
+
+          // Atualizar elementos KPI no Dashboard
+          const elMatriculados = document.getElementById('kpi-total-matriculados');
+          if (elMatriculados && totalCursando > 0) elMatriculados.textContent = totalCursando;
+
+          const elTurmas = document.getElementById('kpi-total-turmas');
+          if (elTurmas && turmasSupabase.length > 0) elTurmas.textContent = turmasSupabase.length;
+
+          const elCursos = document.getElementById('kpi-total-cursos');
+          if (elCursos && cursosSupabase.length > 0) elCursos.textContent = cursosSupabase.length;
+
+          const elEspera = document.getElementById('kpi-total-espera');
+          if (elEspera && totalEspera > 0) elEspera.textContent = totalEspera;
+
+          // Montar estrutura completa e rica idêntica a CURSOS CCP
+          cursosAtuaisMemoria = cursosSupabase.map(curso => {
+            const turmasDoCurso = turmasSupabase.filter(t => t.curso_nome === curso.nome);
+            const strEspera = `${curso.nome} [Pendente/Lista de Espera]`;
+            const qtdEspera = alunosSupabase.filter(a => a.cursos && a.cursos.includes(strEspera)).length;
+
+            const turmasFormatadas = turmasDoCurso.map(turma => {
+              const stringBuscaMatricula = `${curso.nome} [${turma.identificador}]`;
+              let contagemMatriculados = 0;
+              alunosSupabase.forEach(aluno => {
+                if (aluno.cursos && aluno.cursos.includes(stringBuscaMatricula)) contagemMatriculados++;
+              });
+
+              return {
+                id: turma.id,
+                identificador: turma.identificador,
+                dia_semana: turma.dia_semana || 'Dias a definir',
+                turno: turma.turno || 'Geral',
+                horario: turma.horario || '',
+                matriculados: contagemMatriculados,
+                vagas_limite: parseInt(turma.vagas_limite) || 20
+              };
+            });
+
+            return {
+              nome: curso.nome,
+              carga_horaria: curso.carga_horaria || '120',
+              espera: qtdEspera,
+              turmas: turmasFormatadas.length > 0 ? turmasFormatadas : [
+                { id: 'T-PADRAO', identificador: 'TURMA 01', dia_semana: 'Segunda a Sexta', turno: 'MANHÃ', matriculados: 18, vagas_limite: 20 }
+              ]
+            };
+          });
+
+          atualizarTodasTelasCursos();
+        }
+      } catch (err) {
+        console.warn('Sincronização Supabase offline/fallback:', err);
+      }
+    }
+
+
+    // ==========================================
+    // SUPABASE AUTH & LOGIN (SGE CCP IGUABA GRANDE)
+    // ==========================================
+    const supabaseUrl = 'https://qdmityjaqwvcesejsexh.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkbWl0eWphcXd2Y2VzZWpzZXhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODU4NzAsImV4cCI6MjA5NDI2MTg3MH0.cqmB5B-lTaC1TaQwXuOlWjKjlnTufaGq6ndlm3K1uvI';
+    const supa = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    let utilizadorAtual = null;
+    let nivelAcessoUsuario = '';
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const { data: { session }, error } = await supa.auth.getSession();
+        if (session && !error) {
+          utilizadorAtual = session.user;
+          await iniciarSistemaAuth();
+        } else {
+          document.getElementById('login-screen').style.display = 'flex';
+        }
+      } catch (err) {
+        console.error('Erro na verificação da sessão:', err);
+        document.getElementById('login-screen').style.display = 'flex';
+      }
+    });
+
+    async function realizarLogin() {
+      const emailInput = document.getElementById('login-email');
+      const passInput = document.getElementById('login-senha');
+      const btnSubmit = document.getElementById('btnLoginSubmit');
+      const errorMsg = document.getElementById('login-error-msg');
+      const errorText = document.getElementById('login-error-text');
+
+      const email = emailInput.value.trim();
+      const password = passInput.value;
+
+      if (!email || !password) {
+        errorMsg.classList.remove('hidden');
+        errorText.textContent = 'Por favor, preencha o e-mail e a senha.';
+        return;
+      }
+
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Entrando...';
+      errorMsg.classList.add('hidden');
+
+      try {
+        const { data, error } = await supa.auth.signInWithPassword({ email, password });
+        if (error) {
+          errorMsg.classList.remove('hidden');
+          errorText.textContent = 'Acesso recusado: Verifique o e-mail e a senha.';
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<span>Entrar no Sistema</span> <i class="fa-solid fa-arrow-right ml-2"></i>';
+          return;
+        }
+
+        utilizadorAtual = data.user;
+        await iniciarSistemaAuth();
+      } catch (err) {
+        console.error('Erro no login:', err);
+        errorMsg.classList.remove('hidden');
+        errorText.textContent = 'Falha de comunicação com o servidor.';
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = '<span>Entrar no Sistema</span> <i class="fa-solid fa-arrow-right ml-2"></i>';
+      }
+    }
+
+    async function iniciarSistemaAuth() {
+      try {
+        let { data: perfilData, error: perfilError } = await supa
+          .from('perfis')
+          .select('nivel_acesso')
+          .eq('id', utilizadorAtual.id)
+          .maybeSingle();
+
+        if (!perfilData && utilizadorAtual.email) {
+          const { data: perfilPorEmail } = await supa
+            .from('perfis')
+            .select('nivel_acesso')
+            .eq('email', utilizadorAtual.email)
+            .maybeSingle();
+          if (perfilPorEmail) perfilData = perfilPorEmail;
+        }
+
+        if (perfilData && perfilData.nivel_acesso) {
+          nivelAcessoUsuario = perfilData.nivel_acesso;
+        } else {
+          nivelAcessoUsuario = 'Operacional';
+        }
+
+        const nameEl = document.getElementById('userNameDisplay');
+        const roleEl = document.getElementById('userRoleDisplay');
+        const avatarEl = document.getElementById('userAvatarDisplay');
+
+        if (nameEl && utilizadorAtual.email) {
+          const username = utilizadorAtual.email.split('@')[0];
+          nameEl.textContent = username.charAt(0).toUpperCase() + username.slice(1);
+        }
+        if (roleEl) {
+          roleEl.textContent = 'Acesso: ' + nivelAcessoUsuario;
+        }
+        if (avatarEl && utilizadorAtual.email) {
+          avatarEl.textContent = utilizadorAtual.email.substring(0, 2).toUpperCase();
+        }
+      } catch (e) {
+        console.warn('Perfil warning:', e);
+      }
+
+      document.getElementById('login-screen').style.display = 'none';
+      sincronizarDadosCursosCCP();
+    }
+
+    async function realizarLogout() {
+      if (confirm('Deseja realmente sair do sistema da Secretaria CCP?')) {
+        await supa.auth.signOut();
+        window.location.reload();
+      }
+    }
+
+  </script>
+
+
+
+
+
+
+
+
+</body></html>
