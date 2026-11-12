@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Cinzel:wght@600;700&amp;display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -193,14 +194,185 @@
       font-weight: 700;
     }
 
+    /* =================================================== */
+    /* MODO ESCURO (DARK MODE) COMPLETO E PERSISTENTE      */
+    /* =================================================== */
+    html[data-theme="dark"], html.dark {
+      color-scheme: dark;
+    }
+    html[data-theme="dark"] body, html.dark body {
+      background-color: #0b1120 !important;
+      color: #f1f5f9 !important;
+    }
+    /* Cabeçalho superior */
+    html[data-theme="dark"] header.h-16, html.dark header.h-16 {
+      background-color: #0f172a !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    /* Containers e Cards Brancos */
+    html[data-theme="dark"] .bg-white, html.dark .bg-white {
+      background-color: #0f172a !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    /* Elementos Slate 50 / Slate 100 */
+    html[data-theme="dark"] .bg-slate-50, html.dark .bg-slate-50 {
+      background-color: #162032 !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .bg-slate-100, html.dark .bg-slate-100 {
+      background-color: #0b1120 !important;
+      color: #cbd5e1 !important;
+    }
+    /* Textos */
+    html[data-theme="dark"] .text-slate-800, html.dark .text-slate-800,
+    html[data-theme="dark"] .text-slate-900, html.dark .text-slate-900,
+    html[data-theme="dark"] .text-slate-700, html.dark .text-slate-700 {
+      color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .text-slate-600, html.dark .text-slate-600,
+    html[data-theme="dark"] .text-slate-500, html.dark .text-slate-500 {
+      color: #94a3b8 !important;
+    }
+    html[data-theme="dark"] .text-slate-400, html.dark .text-slate-400 {
+      color: #64748b !important;
+    }
+    /* Bordas */
+    html[data-theme="dark"] .border-slate-200, html.dark .border-slate-200,
+    html[data-theme="dark"] .border-slate-300, html.dark .border-slate-300,
+    html[data-theme="dark"] .border-slate-100, html.dark .border-slate-100 {
+      border-color: #1e293b !important;
+    }
+    /* Inputs, Selects, Textareas */
+    html[data-theme="dark"] input, html.dark input,
+    html[data-theme="dark"] select, html.dark select,
+    html[data-theme="dark"] textarea, html.dark textarea {
+      background-color: #162032 !important;
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+    }
+    html[data-theme="dark"] input::placeholder, html.dark input::placeholder {
+      color: #64748b !important;
+    }
+    /* Blocos de Cursos e Turmas */
+    html[data-theme="dark"] .curso-simplified-block, html.dark .curso-simplified-block {
+      background-color: #0f172a !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+    html[data-theme="dark"] .curso-simplified-header, html.dark .curso-simplified-header {
+      border-color: #1e293b !important;
+    }
+    html[data-theme="dark"] .turma-card, html.dark .turma-card {
+      background-color: #162032 !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .turma-card:hover, html.dark .turma-card:hover {
+      background-color: #1e293b !important;
+      border-color: #3b82f6 !important;
+    }
+    /* Badges de Lotação */
+    html[data-theme="dark"] .capacity-bar, html.dark .capacity-bar {
+      background-color: #334155 !important;
+    }
+    html[data-theme="dark"] .badge-disponivel, html.dark .badge-disponivel {
+      background-color: rgba(2, 132, 199, 0.25) !important;
+      color: #38bdf8 !important;
+    }
+    html[data-theme="dark"] .badge-ideal, html.dark .badge-ideal {
+      background-color: rgba(22, 163, 74, 0.25) !important;
+      color: #4ade80 !important;
+    }
+    html[data-theme="dark"] .badge-excedida, html.dark .badge-excedida {
+      background-color: rgba(220, 38, 38, 0.25) !important;
+      color: #f87171 !important;
+    }
+    html[data-theme="dark"] .badge-espera, html.dark .badge-espera {
+      background-color: rgba(217, 119, 6, 0.25) !important;
+      color: #fbbf24 !important;
+    }
+    /* Tabelas */
+    html[data-theme="dark"] .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+    html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+    html[data-theme="dark"] .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
+    html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+      border-color: #1e293b !important;
+    }
+    html[data-theme="dark"] tr:hover, html.dark tr:hover {
+      background-color: rgba(30, 41, 59, 0.5) !important;
+    }
+    /* Modais */
+    html[data-theme="dark"] #modalNovoProtocolo .bg-white, html.dark #modalNovoProtocolo .bg-white,
+    html[data-theme="dark"] #login-screen .bg-white, html.dark #login-screen .bg-white {
+      background-color: #0f172a !important;
+      border-color: #1e293b !important;
+      color: #f8fafc !important;
+    }
+    /* Botões de Alternância e Filtros */
+    html[data-theme="dark"] #btnAlternarTema, html.dark #btnAlternarTema {
+      background-color: #162032 !important;
+      border-color: #334155 !important;
+      color: #e2e8f0 !important;
+    }
+    html[data-theme="dark"] #btnAlternarTema:hover, html.dark #btnAlternarTema:hover {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+    }
+    html[data-theme="dark"] .btn-turno.bg-white, html.dark .btn-turno.bg-white {
+      background-color: #1e293b !important;
+      color: #60a5fa !important;
+    }
+    /* Scrollbars */
+    html[data-theme="dark"] ::-webkit-scrollbar-track, html.dark ::-webkit-scrollbar-track {
+      background: #0b1120;
+    }
+    html[data-theme="dark"] ::-webkit-scrollbar-thumb, html.dark ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+    }
+    html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover, html.dark ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    /* Área de Impressão */
+    @media print {
+      html[data-theme="dark"] body, html.dark body,
+      html[data-theme="dark"] #printArea, html.dark #printArea,
+      html[data-theme="dark"] #printArea * {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+    }
   </style>
+  <script>
+    /* Inicialização imediata do tema para evitar oscilação visual */
+    (function() {
+      const temaSalvo = localStorage.getItem('sge_tema_ccp') || 'light';
+      document.documentElement.setAttribute('data-theme', temaSalvo);
+      if (temaSalvo === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-slate-100 text-slate-800 font-sans h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
   <!-- TELA DE LOGIN (ESTILO PADRÃO CCP IGUABA GRANDE / SUPABASE) -->
   <div id="login-screen" class="no-print fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-8 w-full max-w-md space-y-6 relative">
+      <!-- Alternador de Tema na Tela de Login -->
+      <div class="flex justify-end -mt-2 -mb-2">
+        <button type="button" onclick="alternarTemaVisual()" class="text-xs text-slate-500 hover:text-blue-600 flex items-center gap-1.5 transition cursor-pointer">
+          <i class="fa-solid fa-moon" id="iconeTemaLogin"></i>
+          <span id="textoTemaLogin">Modo Escuro</span>
+        </button>
+      </div>
+
       <div class="text-center space-y-2">
         <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-700 text-white flex items-center justify-center shadow-lg">
           <i class="fa-solid fa-graduation-cap text-2xl text-blue-100"></i>
@@ -243,80 +415,103 @@
     </div>
   </div>
 
-
-  <!-- SIDEBAR FIXA -->
-  <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col flex-shrink-0 z-30 transition-all duration-300 shadow-xl border-r border-slate-800">
-    <!-- Brand / Unidade Header -->
-    <div class="p-5 border-b border-slate-800/80 bg-slate-950/40">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
-          <i class="fa-solid fa-graduation-cap text-lg"></i>
-        </div>
-        <div>
-          <h1 class="font-bold text-sm tracking-wide text-white leading-tight">CCP IGUABA GRANDE</h1>
-          <p class="text-xs text-blue-400 font-medium">Secretaria &amp; Gestão</p>
-        </div>
+  <!-- BARRA DE NAVEGAÇÃO DOS MÓDULOS SGE CCP (ALINHADOS LADO A LADO) -->
+  <nav class="no-print bg-emerald-950/90 border-b border-emerald-800/80 px-4 py-2 shadow-inner w-full flex-shrink-0 z-40">
+    <div class="max-w-[1700px] mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-300">Módulos SGE:</span>
       </div>
-      <div class="mt-3 px-2 py-1 rounded bg-slate-800/70 border border-slate-700/50 flex items-center justify-between text-[11px] text-slate-300">
-        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema Ativo</span>
-        <span class="text-slate-400 font-mono">Ano 2026.2</span>
+      <div class="flex items-center gap-2 overflow-x-auto flex-nowrap flex-1 py-0.5 custom-scrollbar">
+        <a href="https://klausslosso.github.io/PAINEL/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-800/80 hover:border-emerald-500/70 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Painel Principal">
+          <span class="text-sm">🏠</span>
+          <span>Painel Principal</span>
+        </a>
+        <a href="https://klausslosso.github.io/SECRETARIA-CCP/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-emerald-700 border border-emerald-400/80 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Secretaria CCP (Módulo Atual)">
+          <span class="text-sm">🏛️</span>
+          <span>Secretaria CCP</span>
+        </a>
+        <a href="https://klausslosso.github.io/Alunos/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-800/80 hover:border-emerald-500/70 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Gestão de Alunos">
+          <span class="text-sm">👥</span>
+          <span>Gestão de Alunos</span>
+        </a>
+        <a href="https://klausslosso.github.io/CURSOS/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-800/80 hover:border-emerald-500/70 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Cursos e Turmas">
+          <span class="text-sm">📚</span>
+          <span>Cursos e Turmas</span>
+        </a>
+        <a href="https://klausslosso.github.io/INSTRUTOR/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-800/80 hover:border-emerald-500/70 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Área do Instrutor">
+          <span class="text-sm">👔</span>
+          <span>Área do Instrutor</span>
+        </a>
+        <a href="https://klausslosso.github.io/Estoque-CCP/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-800/80 hover:border-emerald-500/70 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Estoque e Insumos">
+          <span class="text-sm">📦</span>
+          <span>Estoque e Insumos</span>
+        </a>
+        <a href="https://klausslosso.github.io/COMUNICA-O/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-800/80 hover:border-emerald-500/70 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Comunicação com o Aluno">
+          <span class="text-sm">💬</span>
+          <span>Comunicação com o Aluno</span>
+        </a>
+        <a href="https://klausslosso.github.io/GODMOD/" target="_self" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-200 hover:text-white bg-rose-950/40 hover:bg-rose-900/80 border border-rose-800/60 hover:border-rose-500 transition-all shadow-sm whitespace-nowrap flex-shrink-0" title="Administração Geral - GodMode">
+          <span class="text-sm">⚙️</span>
+          <span>Administração Geral - GodMode</span>
+        </a>
       </div>
     </div>
+  </nav>
 
-    <!-- Navegação por Módulos -->
-    <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto custom-scrollbar text-sm">
-      <div class="px-3 pb-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Principal</div>
-
-      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg hover:bg-slate-800/80 hover:text-white transition group active-tab font-medium bg-blue-600 text-white shadow-sm">
-        <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
-        <span>Visão Geral &amp; Indicadores</span>
-      </button>
-
-      
-
-      <div class="pt-3 px-3 pb-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Acadêmico</div>
-
-      <a href="https://klausslosso.github.io/Alunos/" target="_blank" id="nav-gestao-alunos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
-        <i class="fa-solid fa-user-graduate w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
-        <span>Gestão de Alunos</span>
-      </a>
-
-      <a href="https://klausslosso.github.io/CURSOS/" target="_blank" id="nav-cursos" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
-        <i class="fa-solid fa-users-rectangle w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
-        <span>Cursos e Turmas</span>
-      </a>
-
-      <a href="https://klausslosso.github.io/Estoque-CCP/" target="_blank" id="nav-materiais" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
-        <i class="fa-solid fa-boxes-stacked w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
-        <span>Estoque e Histórico</span>
-      </a>
-
-      <a href="https://klausslosso.github.io/COMUNICA-O/" target="_blank" id="nav-comunicacao" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
-        <i class="fa-solid fa-bullhorn w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
-        <span>Comunicação com Aluno</span>
-      </a>
-
-      <a href="https://klausslosso.github.io/GERADOR-CERTIFICADOS/" target="_blank" id="nav-doc-certificado" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium">
-        <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
-        <span>Emissão de Certificado</span>
-      </a>
-    </nav>
-
-    <!-- Rodapé da Barra Lateral -->
-    <div class="p-4 border-t border-slate-800/90 bg-slate-950/60 text-xs text-slate-400 flex flex-col gap-2">
-      <div class="flex items-center gap-2">
-        <i class="fa-solid fa-landmark-dome text-blue-400"></i>
-        <span>Prefeitura de Iguaba Grande</span>
+  <!-- WRAPPER PRINCIPAL (SIDEBAR + CONTEÚDO) -->
+  <div class="flex-1 flex flex-row min-h-0 w-full overflow-hidden">
+    <!-- SIDEBAR FIXA -->
+    <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col flex-shrink-0 z-30 transition-all duration-300 shadow-xl border-r border-slate-800">
+      <!-- Brand / Unidade Header -->
+      <div class="p-5 border-b border-slate-800/80 bg-slate-950/40">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+            <i class="fa-solid fa-graduation-cap text-lg"></i>
+          </div>
+          <div>
+            <h1 class="font-bold text-sm tracking-wide text-white leading-tight">CCP IGUABA GRANDE</h1>
+            <p class="text-xs text-blue-400 font-medium">Secretaria &amp; Gestão</p>
+          </div>
+        </div>
+        <div class="mt-3 px-2 py-1 rounded bg-slate-800/70 border border-slate-700/50 flex items-center justify-between text-[11px] text-slate-300">
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema Ativo</span>
+          <span class="text-slate-400 font-mono">Ano 2026.2</span>
+        </div>
       </div>
-      <div class="text-[11px] text-slate-400 pl-5">Sec. Municipal de Trabalho e Renda</div>
-    </div>
-  </aside>
 
-  <!-- CONTEÚDO PRINCIPAL (MAIN WRAPPER) -->
-  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <!-- Navegação por Módulos -->
+      <nav class="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto custom-scrollbar text-sm">
+        <div class="px-3 pb-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Principal</div>
 
-    <!-- CABEÇALHO SUPERIOR (HEADER) -->
-    <header class="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg hover:bg-slate-800/80 hover:text-white transition group active-tab font-medium bg-blue-600 text-white shadow-sm">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+          <span>Visão Geral &amp; Indicadores</span>
+        </button>
+
+        <div class="pt-3 px-3 pb-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Certificação</div>
+
+        <a href="https://klausslosso.github.io/GERADOR-CERTIFICADOS/" target="_self" id="nav-doc-certificado" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800/80 hover:text-white transition group font-medium" title="Emissão de Certificados CCP">
+          <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-300 transition text-base"></i>
+          <span>Emissão de Certificados</span>
+        </a>
+      </nav>
+
+      <!-- Rodapé da Barra Lateral -->
+      <div class="p-4 border-t border-slate-800/90 bg-slate-950/60 text-xs text-slate-400 flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-landmark-dome text-blue-400"></i>
+          <span>Prefeitura de Iguaba Grande</span>
+        </div>
+        <div class="text-[11px] text-slate-400 pl-5">Sec. Municipal de Trabalho e Renda</div>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL (MAIN WRAPPER) -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+      <!-- CABEÇALHO SUPERIOR (HEADER) -->
+      <header class="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs">
       <div class="flex items-center gap-4 flex-1 max-w-xl">
         <div class="relative w-full">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
@@ -327,7 +522,13 @@
       </div>
 
       <!-- Ações do Header & Perfil -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <!-- Alternador de Tema (Modo Escuro / Claro) -->
+        <button id="btnAlternarTema" onclick="alternarTemaVisual()" title="Alternar entre modo claro e escuro" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition cursor-pointer shadow-xs">
+          <i class="fa-solid fa-moon text-sm text-slate-600" id="iconeTema"></i>
+          <span id="textoTema" class="hidden sm:inline">Modo Escuro</span>
+        </button>
+
         <!-- Notificações -->
         <button class="relative p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition" title="Notificações">
           <i class="fa-regular fa-bell text-lg"></i>
@@ -431,7 +632,7 @@
                 <button type="button" onclick="filtrarTurnoCursos('TARDE')" id="btn-turno-tarde" class="btn-turno px-3 py-1 font-medium text-slate-600 hover:text-slate-900 rounded-md cursor-pointer">Tarde</button>
                 <button type="button" onclick="filtrarTurnoCursos('NOITE')" id="btn-turno-noite" class="btn-turno px-3 py-1 font-medium text-slate-600 hover:text-slate-900 rounded-md cursor-pointer">Noite</button>
               </div>
-              <a href="https://klausslosso.github.io/CURSOS/" target="_blank" class="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+              <a href="https://klausslosso.github.io/CURSOS/" target="_self" class="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                 <span>Gerenciar no Portal</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -466,7 +667,7 @@
       <p class="text-xs md:text-sm text-slate-600">Quadro completo com grade de horários, dias de aula e percentual de assiduidade.</p>
     </div>
     <div class="flex items-center gap-3">
-      <a href="https://klausslosso.github.io/CURSOS/" target="_blank" class="px-3.5 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-2 shadow-sm">
+      <a href="https://klausslosso.github.io/CURSOS/" target="_self" class="px-3.5 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-2 shadow-sm">
         <i class="fa-solid fa-external-link"></i> Abrir Sistema de Cursos
       </a>
     </div>
@@ -589,7 +790,7 @@
             <p class="text-xs text-slate-600 mt-1">Documento de conclusão de curso profissionalizante com carga horária e hash de validação.</p>
             <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
               <span class="text-[11px] font-semibold text-blue-600">Modelo Interno Ativo</span>
-              <a href="https://klausslosso.github.io/GERADOR-CERTIFICADOS/" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">Gerador de Certificados Oficial <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+              <a href="https://klausslosso.github.io/GERADOR-CERTIFICADOS/" target="_self" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">Gerador de Certificados Oficial <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
             </div>
           </div>
 
@@ -766,6 +967,7 @@
 
     </main>
   </div>
+</div>
 
   <!-- ============================================================== -->
   <!-- MODAL DE VISUALIZAÇÃO E IMPRESSÃO DE DOCUMENTOS OFICIAIS       -->
@@ -1942,6 +2144,7 @@
     let nivelAcessoUsuario = '';
 
     window.addEventListener('DOMContentLoaded', async () => {
+      aplicarTemaSalvo();
       try {
         const { data: { session }, error } = await supa.auth.getSession();
         if (session && !error) {
@@ -2046,6 +2249,51 @@
       if (confirm('Deseja realmente sair do sistema da Secretaria CCP?')) {
         await supa.auth.signOut();
         window.location.reload();
+      }
+    }
+
+    // ==========================================
+    // CONTROLE DE MODO ESCURO / CLARO (SGE CCP)
+    // ==========================================
+    function aplicarTemaSalvo() {
+      const temaSalvo = localStorage.getItem('sge_tema_ccp') || 'light';
+      document.documentElement.setAttribute('data-theme', temaSalvo);
+      if (temaSalvo === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      atualizarBotoesTema(temaSalvo);
+    }
+
+    function alternarTemaVisual() {
+      const temaAtual = document.documentElement.getAttribute('data-theme') || 'light';
+      const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', novoTema);
+      if (novoTema === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('sge_tema_ccp', novoTema);
+      atualizarBotoesTema(novoTema);
+    }
+
+    function atualizarBotoesTema(tema) {
+      const isDark = (tema === 'dark');
+
+      const textoTema = document.getElementById('textoTema');
+      const iconeTema = document.getElementById('iconeTema');
+      if (textoTema) textoTema.textContent = isDark ? 'Modo Claro' : 'Modo Escuro';
+      if (iconeTema) {
+        iconeTema.className = isDark ? 'fa-solid fa-sun text-sm text-amber-400' : 'fa-solid fa-moon text-sm text-slate-600';
+      }
+
+      const textoTemaLogin = document.getElementById('textoTemaLogin');
+      const iconeTemaLogin = document.getElementById('iconeTemaLogin');
+      if (textoTemaLogin) textoTemaLogin.textContent = isDark ? 'Modo Claro' : 'Modo Escuro';
+      if (iconeTemaLogin) {
+        iconeTemaLogin.className = isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-400';
       }
     }
 
